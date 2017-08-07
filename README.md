@@ -7,36 +7,15 @@
 - Tabla sin dependencias, excepto los plugins creados que son de uso opcional
 
 
-## INIT (Basado en `sagui`)
-[https://github.com/saguijs/sagui](https://github.com/saguijs/sagui)
-
+## Compilar projecto
 
 ```bash
-npm install
+yarn install
 ```
-
-Start the development server:
-
 ```bash
-npm start
+yarn dist
 ```
 
-
-## npm scripts
-
-Sagui manages the [package.json](https://docs.npmjs.com/files/package.json) scripts for you:
-
-- `npm run build`: build a development version of the project;
-- `npm run dist`: build an optimized (ready for deployment) version of the project;
-- `npm run start`: spin up a development server with live-reload and [HMR](https://webpack.js.org/concepts/hot-module-replacement/);
-- `npm run format`: automatically format the code using [prettier](https://github.com/prettier/prettier);
-- `npm run test`: run all test related scripts below;
-- `npm run test:lint`: run static analysis in the code;
-- `npm run test:unit`: run the unit tests;
-- `npm run test:typecheck`: run the static type analysis in the code;
-- `npm run test:unit:watch`: run a test watcher (great for development and debugging).
-
-If you don't change the scripts, they will be **automatically updated** on new Sagui releases.
 
 ## Inicialización
 
