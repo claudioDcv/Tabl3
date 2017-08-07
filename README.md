@@ -188,7 +188,7 @@ render() {
 
 - paginator `{object}`
 
-## Implemantación
+## Implementación
 
 ```javascript
 import React from 'react';
