@@ -1,0 +1,26 @@
+.table-2-new th .Select-control {
+    font-family: Lato,Helvetica,Arial,sans-serif;
+    font-size: 15px;
+    line-height: 1.467;
+    background-color: #fff;
+    border-color: #16a085 #16a085 #16a085;
+    border-radius: 4px;
+    border: 2px solid #16a085;
+    color: #333;
+    cursor: default;
+    display: table;
+    border-spacing: 0;
+    border-collapse: separate;
+    height: 36px;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.table-2-new th .Select-input {
+    height: 32px;
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: middle;
+}
