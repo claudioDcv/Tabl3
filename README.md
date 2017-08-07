@@ -232,7 +232,7 @@ export default () => (
           dataset: true,
         },
         onBeforeSend: (e) => { console.log(e); },
-        onAfterSend: : (e) => { console.log(e); },
+        onAfterSend: (e) => { console.log(e); },
         table: {
           className: 'table table-hover table-sm',
           resetButton: {

@@ -17,7 +17,7 @@ class PrevBtn extends React.Component {
             }
           }}
         >
-          <span aria-hidden="true">&laquo;</span>
+          <span aria-hidden="true" className="table-2-new-prev-btn">&laquo;</span>
         </a>
       </li>
     )

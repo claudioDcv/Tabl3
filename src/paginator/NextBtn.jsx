@@ -17,7 +17,7 @@ class NextBtn extends React.Component {
             }
           }}
         >
-          <span aria-hidden="true">&raquo;</span>
+          <span aria-hidden="true" className="table-2-new-next-btn">&raquo;</span>
         </a>
       </li>
     )

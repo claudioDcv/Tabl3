@@ -26,7 +26,7 @@ class Table2 extends Component {
     super(props)
     const prs = props
     this.name = 'React Table ServerSide'
-    this.version = 'v1.0.24'
+    this.version = 'v1.0.25'
     this.state = {
       initiaAjax: { ...prs.config.ajax },
       config: prs.config,
@@ -165,7 +165,6 @@ class Table2 extends Component {
       ...config.headers,
       ...headers,
     }
-    delete config.liveHeaders
     this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData)
   }
   ajaxExec(url) {
