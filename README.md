@@ -1,5 +1,11 @@
 # Tabl3 React Server Side
 
+- [repo git](https://github.com/claudioDcv/Tabl3)
+- [paquete npm](https://www.npmjs.com/package/tabl3)
+
+- creado por [claudio.dcv@gmail.com](claudio.dcv@gmail.com)
+- Si quieres colaborar, escribeme un correo.
+
 - Tabla 100% server side creada en `React`
 - Agnostica a cualquier libreria que maneje el estado como `Redux` o `Reflux`,
 - Pensada para ser 100% compatible con `Django Rest Framework` pero no exclusiva, por tanto si el backend retorna un objeto `JSON` como el que requiere esta tabla, no existe problema para funcionar con otros lenguajes o framework
@@ -7,7 +13,7 @@
 - Tabla sin dependencias, excepto los plugins creados que son de uso opcional
 
 
-## Compilar projecto
+## Compilar proyecto
 
 ```bash
 yarn install
