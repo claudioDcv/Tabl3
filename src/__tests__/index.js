@@ -1,25 +1,91 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+
+import Tabl3 from '../Index.jsx';
+import conector from '../conector/ajax';
+import removeParamFromQS from '../core/removeParamFromQS';
 
 jest.mock('../conector/ajax');
 
-/* Component to Test */
-import Table2New from '../Index.jsx';
-
-import conector from '../conector/ajax';
-
-
-
-const randomInt = (init, end) => Math.floor((Math.random() * end) + init);
+describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
+  test('remove limit', () => {
+    expect(removeParamFromQS('name__icontains', 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a')).toEqual('http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name');
+  });
+});
 
 let component = {};
 let table2new = {};
 
-describe("Table2New GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
+describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
+  test('create Table & asign className', () => {
+    component2 = mount(
+      <Tabl3
+        config={{
+          ajax: {
+            url: 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a',
+            method: 'GET',
+            liveHeaders: () => {
+              return {
+                Authorization: 'JWT 298KJHkj1KJH',
+              };
+            },
+          },
+          conector: conector,
+          debug: {
+            inputSearch: true,
+            paginator: true,
+            initiaAjax: true,
+            dataset: true,
+          },
+          onBeforeSend: e => ((e) => { }),
+          onAfterSend: e => ((e) => { }),
+          errors: {
+            onAjaxError: e => ((e) => { /* console.log(arguments);*/ }),
+          },
+          table: {
+            className: 'table table-hover table-condensed',
+            resetButton: {
+              className: 'btn btn-sm btn-warning',
+              title: 'Restablecer',
+              onReset: e => ((e) => { }),
+            },
+            thead: {
+              className: '',
+              actions: {
+                className: '',
+                cssTH: {
+                  width: '130px',
+                  minWidth: '130px',
+                },
+                component: instance => (<button>{instance.id}</button>),
+              },
+            },
+          },
+          paginator: {
+            prevLink: 3,
+            nextLink: 3,
+          },
+          columns: [
+            {
+              title: 'Nombre',
+              name: 'name',
+              textEmpty: 'Sin deatlle',
+              inputPlaceholder: 'Buscar',
+              input: 'name__icontains',
+            },
+            /* end fake columns */
+          ],
+        }}/>
+    );
+    table2new2 = component2;
+    expect(table2new2.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
+  });
+});
+
+describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
   test('create Table & asign className', () => {
     component = mount(
-      <Table2New
+      <Tabl3
         config={{
           ajax: {
             url: 'http://127.0.0.1:8000/colors/?limit=4',
@@ -120,10 +186,11 @@ describe("Table2New GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
 
 let component2 = {};
 let table2new2 = {};
-describe("Table2New GET [http://127.0.0.1:8000/colors/?limit=4&offset=8&ordering=-name]", function () {
+
+describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=8&ordering=-name]", function () {
   test('create Table & asign className', () => {
     component2 = mount(
-      <Table2New
+      <Tabl3
         config={{
           ajax: {
             url: 'http://127.0.0.1:8000/colors/?limit=4&offset=8&ordering=-name',
@@ -183,5 +250,48 @@ describe("Table2New GET [http://127.0.0.1:8000/colors/?limit=4&offset=8&ordering
     );
     table2new2 = component2;
     expect(table2new2.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
+  });
+});
+
+describe("Tabl3 Generate Error", function () {
+  test('error', () => {
+    const tableError = mount(
+      <Tabl3 config={{
+        table: {
+          className: 'table table-hover table-condensed',
+          resetButton: {
+            className: 'btn btn-sm btn-warning',
+            title: 'Restablecer',
+            onReset: e => ((e) => { }),
+          },
+          thead: {
+            className: '',
+            actions: {
+              className: '',
+              cssTH: {
+                width: '130px',
+                minWidth: '130px',
+              },
+              component: instance => (<button>{instance.id}</button>),
+            },
+          },
+        },
+        paginator: {
+          prevLink: 3,
+          nextLink: 3,
+        },
+        columns: [
+          {
+            title: 'Nombre',
+            name: 'name',
+            textEmpty: 'Sin deatlle',
+            inputPlaceholder: 'Buscar',
+            input: 'name__icontains',
+          },
+          /* end fake columns */
+        ],
+      }}/>);
+      const instanceTableError = tableError.instance();
+    expect(instanceTableError.initError).toEqual(true);
   });
 });

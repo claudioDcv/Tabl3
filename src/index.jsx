@@ -27,6 +27,7 @@ class Table2 extends Component {
     const prs = props
     this.name = 'React Table ServerSide'
     this.version = 'v1.0.25'
+    this.initError = false
     this.state = {
       initiaAjax: { ...prs.config.ajax },
       config: prs.config,
@@ -46,8 +47,10 @@ class Table2 extends Component {
     this.resetToInitialState = this.resetToInitialState.bind(this)
   }
   componentDidMount() {
-    if (errorInitialTable(this.props)) {
+    if (errorInitialTable(this, this.props)) {
       this.init()
+    } else {
+      this.initError = true;
     }
   }
   setStateService(dataset, response, opt) {
