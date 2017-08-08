@@ -1,5 +1,7 @@
 # Tabl3 React Server Side
 
+[![Build Status](https://travis-ci.org/claudioDcv/Tabl3.svg?branch=master)](https://travis-ci.org/claudioDcv/Tabl3)
+
 - [repo git](https://github.com/claudioDcv/Tabl3)
 - [paquete npm](https://www.npmjs.com/package/tabl3)
 
