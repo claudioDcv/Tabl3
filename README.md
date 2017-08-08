@@ -56,6 +56,7 @@ render() {
   const conector = (opt, callback, errorCallback, nonErrorAjax, onAfterSend) => {
     axios(opt).then(
       response => {
+      	/* estas 3 funcionas se suelen ejecutar a la vez */
         nonErrorAjax()
         callback(response.data, response, opt)
         onAfterSend(response)
@@ -67,6 +68,33 @@ render() {
   export default conector
   ```
 
+##### Parametros que entrega la funcion callback del `conector`
+
+- opt {object}: es el objeto declarado en `config.ajax`
+- calback {function}: se deben paras 3 parametros
+	- 1: la data de la respuesta (el siguiente apartado `Servicio` esplica bien lo que contiene `data`)
+
+	```json
+  {
+      "count": 13,
+      "results": [
+          {
+              "id": 1,
+              "name": "Blanco",
+              "natural_key": "blanco"
+          },
+      ]
+  }
+  ```
+  - 2: response: en el caso de `axios` contiene toda la metadata adicional, como las cabeceras, es `status`
+
+  - 3: opt: se retorna la configuración enviada al servicio, se puede manipular antes si hace falta, pero no se recomienda ya que podria afectar negativamente a la funcionalidad de la tabla.
+
+- errorCallback: una funcion que recibe como unico parametro la respuesta `response` cuando ha ocurrido un error
+- nonErorAjax: se ejecuta en caso de que no exista algun error con `ajax` se suele ejecutar en el caso de exito junto a `callback`
+- onAfterSend: pasa un objeto que retornara la funcion callback que puede ser escuhada desde fuera de la tabla, se suele pasar `response` como unico argumento
+
+
 ## Servicio
 
 - **request**: al menos se debe enviar dos parametros `http://127.0.0.1:8000/colors/?limit=4&offset=8`
@@ -77,7 +105,7 @@ render() {
     - 0 para retornar desde el primer registros
     - 4 para retornar desde el 5to hacia lo definido en `limit`
 
-- **response**: es importante que el servicio consultado retorne el siguiente tipo de objecto
+- **response**: es importante que el servicio consultado retorne el siguiente tipo de objecto `data`
 
   ```json
   {
@@ -182,7 +210,10 @@ render() {
   onAfterSend: (response) => { console.log(response); },
   ```
 
-- table `{object}`
+- table `{object}`: este objeto contiene los siguiente atributos
+
+	- clasName `{string} | opcional` : clases css pasadas directamente al tag `<table>`
+	- resetButton
 
 - columns `{array}`
 
