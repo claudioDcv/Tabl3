@@ -1,0 +1,15 @@
+{
+  "name": "tabl3",
+  "version": "1.0.22",
+  "description": "React Table Server Side, Extensible with plugins",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "claudio.dcv <claudio.dcv@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^15.6.1",
+    "prop-types": "^15.5.10"
+  }
+}
