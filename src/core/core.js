@@ -16,6 +16,11 @@ export const makePaginator = (data, opt) => {
   const service = data
   const pg = {}
 
+  if (!service) {
+    return false
+  }
+
+
   pg[API.COUNT] = service[API.COUNT]
   pg[API.LIMIT] = parseInt(extractParamInt(API.LIMIT, opt.url), 10) || service.results.length
   pg[API.OFFSET] = parseInt(extractParamInt(API.OFFSET, opt.url), 10)
@@ -47,6 +52,5 @@ export const makePaginator = (data, opt) => {
   pg.actual = updateOrCreateParam(pg.actual, API.ORDERING, ordering)
   pg.next = updateOrCreateParam(pg.next, API.ORDERING, ordering)
   pg.prev = updateOrCreateParam(pg.prev, API.ORDERING, ordering)
-
   return pg
 }

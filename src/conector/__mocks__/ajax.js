@@ -12,6 +12,10 @@ const ajax = (opt, callback, errorCallback, nonErrorAjax, onAfterSend) => {
   nonErrorAjax()
   callback(response.data, response, opt)
   onAfterSend(response)
+  if (opt.simulateError) {
+    errorCallback(response)
+    return false
+  }
 }
 
 export default ajax

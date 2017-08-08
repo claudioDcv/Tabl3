@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Tabl3 from '../Index.jsx';
+import Tabl3 from '../index';
 import conector from '../conector/ajax';
 import removeParamFromQS from '../core/removeParamFromQS';
 
@@ -10,6 +10,9 @@ jest.mock('../conector/ajax');
 describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
   test('remove limit', () => {
     expect(removeParamFromQS('name__icontains', 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a')).toEqual('http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name');
+  });
+  test('remove limit false', () => {
+    expect(removeParamFromQS('name__', 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a')).toEqual('http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a');
   });
 });
 
@@ -187,14 +190,15 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
 let component2 = {};
 let table2new2 = {};
 
-describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=8&ordering=-name]", function () {
-  test('create Table & asign className', () => {
+describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
+  test('create Table & click paginator', () => {
     component2 = mount(
       <Tabl3
         config={{
           ajax: {
-            url: 'http://127.0.0.1:8000/colors/?limit=4&offset=8&ordering=-name',
+            url: 'http://127.0.0.1:8000/colors/?limit=4',
             method: 'GET',
+            simulateError: true,
             liveHeaders: () => {
               return {
                 Authorization: 'JWT 298KJHkj1KJH',
@@ -248,9 +252,9 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=8&ordering=-na
           ],
         }}/>
     );
-    table2new2 = component2;
-    expect(table2new2.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
-  });
+    const table2new2Instance = component2.instance();
+    console.log(table2new2Instance.updateState('PAGINATOR_GOTO_PAGE', 1));
+    });
 });
 
 describe("Tabl3 Generate Error", function () {

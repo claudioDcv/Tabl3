@@ -3,14 +3,6 @@ import PropTypes from 'prop-types'
 import Paginator from './Paginator'
 
 class TFooter extends Component {
-  constructor(props) {
-    super(props)
-    this.update = this.update.bind(this)
-  }
-  update() {
-    const val = 'hola desde tfoot'
-    this.props.updateState('now', val)
-  }
   render() {
     const state = this.props.tableState
     return (
