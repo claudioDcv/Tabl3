@@ -5,14 +5,6 @@ import { makeKey } from './core/core'
 import HeaderBtn from './HeaderBtn'
 
 class Thead extends Component {
-  constructor(props) {
-    super(props)
-    this.update = this.update.bind(this)
-  }
-  update() {
-    const prs = this.props
-    prs.initialState()
-  }
   TH(e, key) {
     return (
       <th key={makeKey(key)} className={e.className} style={e.cssTH}>
