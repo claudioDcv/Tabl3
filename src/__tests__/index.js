@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Tabl3 from '../Index.jsx';
+import Tabl3 from '../Index';
 import conector from '../conector/ajax';
 import removeParamFromQS from '../core/removeParamFromQS';
 
