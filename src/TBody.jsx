@@ -5,6 +5,9 @@ import { makeKey } from './core/core'
 
 class TBody extends Component {
   render() {
+    if (!this.props.tableState.dataset) {
+      return <tbody />
+    }
     return (
       <tbody>
         {this.props.tableState.dataset.results.map((e, key) =>
