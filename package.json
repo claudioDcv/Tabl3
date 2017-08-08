@@ -13,10 +13,12 @@
     "browserify": "^14.4.0",
     "enzyme": "^2.9.1",
     "eslint": "^4.4.0",
+    "istanbul": "^0.4.5",
     "jest": "^20.0.4",
+    "jest-localstorage-mock": "^1.2.0",
+    "react-test-renderer": "^15.6.1",
     "webpack": "^3.4.1"
   },
-
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
@@ -29,9 +31,46 @@
   },
   "scripts": {
     "dist": "babel src --out-dir dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/jest --coverage"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!src/conector/ajax.js",
+      "!src/plugins/**"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js",
+      "jest-localstorage-mock"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.js?(x)",
+      "<rootDir>/src/**/?(*.)(spec|test).js?(x)"
+    ],
+    "testEnvironment": "jsdom",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web"
+    }
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
 }
