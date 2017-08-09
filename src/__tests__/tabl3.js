@@ -299,3 +299,68 @@ describe("Tabl3 Generate Error", function () {
     expect(instanceTableError.initError).toEqual(true);
   });
 });
+
+
+describe("Tabl3 onAjaxError", function () {
+
+
+  const inputTest = (handlerChangeInput, instance, value) => {
+    const hdc = handlerChangeInput;
+    return (
+      <input value={value} onChange={hdc} />
+    )
+  };
+  test('render custom imput', () => {
+    const tableError = mount(
+      <Tabl3 config={{
+        ajax: {
+          url: 'http://127.0.0.1:8000/colors/?limit=4',
+          method: 'GET',
+          simulateError: true,
+          liveHeaders: () => {
+            return {
+              Authorization: 'JWT 298KJHkj1KJH',
+            };
+          },
+        },
+        conector: conector,
+        table: {
+          className: 'table table-hover table-condensed',
+          resetButton: {
+            className: 'btn btn-sm btn-warning',
+            title: 'Restablecer',
+            onReset: e => ((e) => { }),
+          },
+          thead: {
+            className: '',
+            actions: {
+              className: '',
+              cssTH: {
+                width: '130px',
+                minWidth: '130px',
+              },
+              component: instance => (<button>{instance.id}</button>),
+            },
+          },
+        },
+        onAjaxError: e => ((e) => { }),
+        paginator: {
+          prevLink: 3,
+          nextLink: 3,
+        },
+        columns: [
+          {
+            title: 'Nombre',
+            name: 'name',
+            textEmpty: 'Sin deatlle',
+            inputPlaceholder: 'Buscar',
+            input: 'name__icontains',
+            componentInput: inputTest,
+          },
+          /* end fake columns */
+        ],
+      }}/>);
+      const instanceTableError = tableError.instance();
+    expect(instanceTableError.initError).toEqual(false);
+  });
+});
