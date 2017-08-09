@@ -82,6 +82,14 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
     );
     table2new2 = component2;
     expect(table2new2.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
+    const table2new2Instance = component2.instance();
+    table2new2Instance.updateState('PAGINATOR_GOTO_PAGE', 1)
+    table2new2Instance.updateState('PAGINATOR_PREV_PAGE')
+    table2new2Instance.updateState('PAGINATOR_NEXT_PAGE')
+    table2new2Instance.updateState('RESULTS_ORDERING', 'name')
+    table2new2Instance.resetToInitialState()
+    //table2new2Instance.compareOrderingParam('-name')
+    //table2new2Instance.compareOrderingParam('name')
   });
 });
 
@@ -253,7 +261,18 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
         }}/>
     );
     const table2new2Instance = component2.instance();
-    console.log(table2new2Instance.updateState('PAGINATOR_GOTO_PAGE', 1));
+    table2new2Instance.updateState('PAGINATOR_GOTO_PAGE', 1)
+    table2new2Instance.updateQueryStringOut((p) => {
+      return {
+        offset: 0,
+      }
+    }, false);
+    table2new2Instance.updateQueryStringOut((p) => {
+      return {
+        offset: 0,
+      }
+    }, true);
+
     });
 });
 
@@ -297,5 +316,70 @@ describe("Tabl3 Generate Error", function () {
       }}/>);
       const instanceTableError = tableError.instance();
     expect(instanceTableError.initError).toEqual(true);
+  });
+});
+
+
+describe("Tabl3 onAjaxError", function () {
+
+
+  const inputTest = (handlerChangeInput, instance, value) => {
+    const hdc = handlerChangeInput;
+    return (
+      <input value={value} onChange={hdc} />
+    )
+  };
+  test('render custom imput', () => {
+    const tableError = mount(
+      <Tabl3 config={{
+        ajax: {
+          url: 'http://127.0.0.1:8000/colors/?limit=4',
+          method: 'GET',
+          simulateError: true,
+          liveHeaders: () => {
+            return {
+              Authorization: 'JWT 298KJHkj1KJH',
+            };
+          },
+        },
+        conector: conector,
+        table: {
+          className: 'table table-hover table-condensed',
+          resetButton: {
+            className: 'btn btn-sm btn-warning',
+            title: 'Restablecer',
+            onReset: e => ((e) => { }),
+          },
+          thead: {
+            className: '',
+            actions: {
+              className: '',
+              cssTH: {
+                width: '130px',
+                minWidth: '130px',
+              },
+              component: instance => (<button>{instance.id}</button>),
+            },
+          },
+        },
+        onAjaxError: e => ((e) => { }),
+        paginator: {
+          prevLink: 3,
+          nextLink: 3,
+        },
+        columns: [
+          {
+            title: 'Nombre',
+            name: 'name',
+            textEmpty: 'Sin deatlle',
+            inputPlaceholder: 'Buscar',
+            input: 'name__icontains',
+            componentInput: inputTest,
+          },
+          /* end fake columns */
+        ],
+      }}/>);
+      const instanceTableError = tableError.instance();
+    expect(instanceTableError.initError).toEqual(false);
   });
 });

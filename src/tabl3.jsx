@@ -87,7 +87,7 @@ class Table2 extends Component {
       if (o) {
         Object.keys(o).forEach(v => {
           if (Object.prototype.hasOwnProperty.call(o, v)) {
-            if (o[v].value) {
+            if (o[v]) {
               url = updateOrCreateParamFromQS(url, v, o[v])
             }
           }
@@ -154,7 +154,15 @@ class Table2 extends Component {
     }
 
     const ecb = e => {
-      this.setState({ ajaxError: true }, this.state.config.errors.onAjaxError(e))
+      this.setState({ ajaxError: true }, () => {
+        if (this.state.config.errors) {
+          if (this.state.config.errors.onAjaxError) {
+            this.state.config.errors.onAjaxError(e)
+          } else {
+            console.error(e)
+          }
+        }
+      })
     }
     const nonErrorAjax = () => {
       this.setState({ ajaxError: false })
