@@ -82,6 +82,14 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
     );
     table2new2 = component2;
     expect(table2new2.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
+    const table2new2Instance = component2.instance();
+    table2new2Instance.updateState('PAGINATOR_GOTO_PAGE', 1)
+    table2new2Instance.updateState('PAGINATOR_PREV_PAGE')
+    table2new2Instance.updateState('PAGINATOR_NEXT_PAGE')
+    table2new2Instance.updateState('RESULTS_ORDERING', 'name')
+    table2new2Instance.resetToInitialState()
+    //table2new2Instance.compareOrderingParam('-name')
+    //table2new2Instance.compareOrderingParam('name')
   });
 });
 
@@ -253,7 +261,18 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
         }}/>
     );
     const table2new2Instance = component2.instance();
-    console.log(table2new2Instance.updateState('PAGINATOR_GOTO_PAGE', 1));
+    table2new2Instance.updateState('PAGINATOR_GOTO_PAGE', 1)
+    table2new2Instance.updateQueryStringOut((p) => {
+      return {
+        offset: 0,
+      }
+    }, false);
+    table2new2Instance.updateQueryStringOut((p) => {
+      return {
+        offset: 0,
+      }
+    }, true);
+
     });
 });
 
