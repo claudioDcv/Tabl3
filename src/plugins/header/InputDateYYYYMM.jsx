@@ -1,6 +1,6 @@
 import React from 'react'
 import Datetime from 'react-datetime'
-import './InputDate.css'
+
 const moment = require('moment')
 
 const renderers = {

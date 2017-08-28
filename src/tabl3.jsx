@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import THead from './THead'
 import TBody from './TBody'
 import TFooter from './TFooter'
@@ -17,7 +18,7 @@ import { errorInitialTable } from './errorReport'
 class Table2 extends Component {
   static formatJSON(st, val) {
     return (
-      <pre>
+      <pre style={{ textAlign: 'left' }}>
         {JSON.stringify(st[val], undefined, 4)}
       </pre>
     )
@@ -26,7 +27,7 @@ class Table2 extends Component {
     super(props)
     const prs = props
     this.name = 'React Table ServerSide'
-    this.version = 'v1.0.25'
+    this.version = 'v1.0.30'
     this.initError = false
     this.state = {
       initiaAjax: { ...prs.config.ajax },
@@ -262,6 +263,8 @@ class Table2 extends Component {
   }
 }
 
-Table2.propTypes = {}
+Table2.propTypes = {
+  config: PropTypes.object
+};
 
 export default Table2

@@ -17,6 +17,6 @@ yarn-debug.log*
 yarn-error.log*
 .sagui
 coverage
-dist
+# dist
 node_modules
 npm-debug.log
