@@ -1,5 +1,7 @@
 # Tabl3 React Server Side
 
+[![Build Status](https://travis-ci.org/claudioDcv/Tabl3.svg?branch=master)](https://travis-ci.org/claudioDcv/Tabl3) [![codecov](https://codecov.io/gh/claudioDcv/Tabl3/branch/master/graph/badge.svg)](https://codecov.io/gh/claudioDcv/Tabl3) [![npm](https://img.shields.io/npm/v/tabl3.svg)](https://www.npmjs.com/package/tabl3) [![npm](https://img.shields.io/npm/l/tabl3.svg)](https://www.npmjs.com/package/tabl3) [![npm](https://img.shields.io/npm/dm/tabl3.svg)](https://www.npmjs.com/package/tabl3)
+
 - [repo git](https://github.com/claudioDcv/Tabl3)
 - [paquete npm](https://www.npmjs.com/package/tabl3)
 
@@ -224,6 +226,16 @@ render() {
 - columns `{array}`
 
 - paginator `{object}`
+
+
+
+- `nuevo` onAfterRender `{function} | optional` : se ejecuta cada vez que termina el render de los trs
+
+### el argumento `component` contiene otros atributos
+
+1: el elemento en el row
+2: los valores de la columna descritos en la definicion
+3: el numero de columna (key) en ese momento
 
 ## Implementación
 
