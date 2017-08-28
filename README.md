@@ -227,6 +227,16 @@ render() {
 
 - paginator `{object}`
 
+
+
+- `nuevo` onAfterRender `{function} | optional` : se ejecuta cada vez que termina el render de los trs
+
+### el argumento `component` contiene otros atributos
+
+1: el elemento en el row
+2: los valores de la columna descritos en la definicion
+3: el numero de columna (key) en ese momento
+
 ## Implementación
 
 ```javascript
