@@ -5,15 +5,16 @@ import { makeKey, dotNotationToObject } from './core/core'
 
 class TR extends Component {
   static TD(o, col, key) {
-    let object = col.textEmpty
+    let object = col.isEmpty || col.textEmpty
     try {
       object = dotNotationToObject(o, col.name)
     } catch (e) {
       console.warn(`atribute (${col.name}), non exist`, e.toString())
     }
-    if (object === 'undefined') {
+    console.log(object);
+    if (object === 'undefined' || object === '') {
       console.warn(`atribute (${col.name}), is undefined`)
-      object = col.textEmpty
+      object = col.isEmpty || col.textEmpty
     }
     return (
       <td key={makeKey(key)}>
@@ -43,7 +44,7 @@ class TR extends Component {
     const td = (col, key) => {
       if (col.component) {
         return (
-          <td key={makeKey(key)}>
+          <td style={col.style} key={makeKey(key)}>
             {col.component(o.element, col, key)}
           </td>
         )

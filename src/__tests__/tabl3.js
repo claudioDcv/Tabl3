@@ -42,6 +42,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
           },
           onBeforeSend: e => ((e) => { }),
           onAfterSend: e => ((e) => { }),
+          onAfterRender: e => ((e) => { }),
           errors: {
             onAjaxError: e => ((e) => { /* console.log(arguments);*/ }),
           },
@@ -60,6 +61,8 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
                   width: '130px',
                   minWidth: '130px',
                 },
+                isEmpty: 'bla',
+                style: { color: 'red' },
                 component: instance => (<button>{instance.id}</button>),
               },
             },

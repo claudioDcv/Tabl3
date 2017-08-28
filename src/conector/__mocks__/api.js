@@ -1,4 +1,3 @@
-/* eslint-disable */
 export const API = {
   'http://127.0.0.1:8000/colors/?limit=4': {
     count: 13,
