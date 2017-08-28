@@ -11,7 +11,11 @@ class TBody extends Component {
   endRender(e, key) {
     if (key + 1 === this.props.tableState.columns.length) {
       setTimeout(() => {
-        this.props.tableState.config.onAfterRender(this.props.tableState.paginator);
+        if (this.props.tableState.config.onAfterRender) {
+          if(typeof this.props.tableState.config.onAfterRender === 'function'){
+            this.props.tableState.config.onAfterRender(this.props.tableState.paginator);
+          }
+        }
       }, 0);
     }
   }

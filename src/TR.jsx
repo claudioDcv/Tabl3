@@ -11,13 +11,12 @@ class TR extends Component {
     } catch (e) {
       console.warn(`atribute (${col.name}), non exist`, e.toString())
     }
-    console.log(object);
     if (object === 'undefined' || object === '') {
       console.warn(`atribute (${col.name}), is undefined`)
       object = col.isEmpty || col.textEmpty
     }
     return (
-      <td key={makeKey(key)}>
+      <td style={col.style} className={col.className} key={makeKey(key)}>
         {object}
       </td>
     )
@@ -44,7 +43,7 @@ class TR extends Component {
     const td = (col, key) => {
       if (col.component) {
         return (
-          <td style={col.style} key={makeKey(key)}>
+          <td style={col.style} key={makeKey(key)} className={col.className}>
             {col.component(o.element, col, key)}
           </td>
         )
