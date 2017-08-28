@@ -60,6 +60,9 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
         onAfterSend: function onAfterSend(e) {
           return function (e) {};
         },
+        onAfterRender: function onAfterRender(e) {
+          return function (e) {};
+        },
         errors: {
           onAjaxError: function onAjaxError(e) {
             return function (e) {/* console.log(arguments);*/};

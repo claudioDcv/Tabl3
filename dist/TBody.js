@@ -47,7 +47,11 @@ var TBody = function (_Component) {
 
       if (key + 1 === this.props.tableState.columns.length) {
         setTimeout(function () {
-          _this2.props.tableState.config.onAfterRender(_this2.props.tableState.paginator);
+          if (_this2.props.tableState.config.onAfterRender) {
+            if (typeof _this2.props.tableState.config.onAfterRender === 'function') {
+              _this2.props.tableState.config.onAfterRender(_this2.props.tableState.paginator);
+            }
+          }
         }, 0);
       }
     }

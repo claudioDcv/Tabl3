@@ -37,14 +37,13 @@ var TR = function (_Component) {
       } catch (e) {
         console.warn('atribute (' + col.name + '), non exist', e.toString());
       }
-      console.log(object);
       if (object === 'undefined' || object === '') {
         console.warn('atribute (' + col.name + '), is undefined');
         object = col.isEmpty || col.textEmpty;
       }
       return _react2.default.createElement(
         'td',
-        { key: (0, _core.makeKey)(key) },
+        { style: col.style, className: col.className, key: (0, _core.makeKey)(key) },
         object
       );
     }
@@ -84,7 +83,7 @@ var TR = function (_Component) {
         if (col.component) {
           return _react2.default.createElement(
             'td',
-            { style: col.style, key: (0, _core.makeKey)(key) },
+            { style: col.style, key: (0, _core.makeKey)(key), className: col.className },
             col.component(o.element, col, key)
           );
         }
