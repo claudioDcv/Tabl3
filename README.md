@@ -33,7 +33,7 @@ yarn dist
 
 render() {
   return (
-    <Table2New
+    <Tabl3
       config={}
     />
   );
@@ -46,7 +46,7 @@ render() {
 
 render() {
   return (
-    <Table2New
+    <Table3
       ref={(e) => { this.table = e; }}
       config={}
     />
@@ -242,7 +242,7 @@ render() {
 ```javascript
 import React from 'react';
 import axios from 'axios';
-import Table2 from '../../Table2New/Index';
+import Tabl3 from '../../tabl3/tabl3';
 import { InputSelectAsync } from '../../Table2New/plugins/index';
 
 const baseUrl = 'http://127.0.0.1:8000';
@@ -265,7 +265,7 @@ export default () => (
   <div>
     <h1>About Us</h1>
     <p>Hello Medium!</p>
-    <Table2
+    <Tabl3
       ref={(e) => { this.table = e; }}
       config={{
         ajax: {
