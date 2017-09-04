@@ -54,7 +54,11 @@ class TR extends Component {
       <tr>
         {st.columns.map((col, key) => td(col, key))}
         {st.config.table.thead.actions
-          ? <td key="actions">
+          ? <td
+              key="actions"
+              style={st.config.table.thead.actions.style || {}}
+              className={st.config.table.thead.actions.className || ''}
+            >
               {this.componentAction(o.element)}
             </td>
           : undefined}
