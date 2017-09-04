@@ -61,7 +61,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
           return function (e) {};
         },
         onAfterRender: function onAfterRender(e) {
-          return function (e) {};
+          console.log(e);
         },
         errors: {
           onAjaxError: function onAjaxError(e) {
@@ -201,6 +201,85 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
           textEmpty: 'Sin deatlle',
           inputPlaceholder: 'Buscar',
           input: 'name__icontains'
+        }]
+      } }));
+    table2new = component;
+    expect(table2new.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
+  });
+
+  test('create Table & no input', function () {
+    component = (0, _enzyme.mount)(_react2.default.createElement(_index2.default, {
+      config: {
+        ajax: {
+          url: 'http://127.0.0.1:8000/colors/?limit=4',
+          method: 'GET',
+          liveHeaders: function liveHeaders() {
+            return {
+              Authorization: 'JWT 298KJHkj1KJH'
+            };
+          }
+        },
+        conector: _ajax2.default,
+        debug: {
+          inputSearch: true,
+          paginator: true,
+          initiaAjax: true,
+          dataset: true
+        },
+        onBeforeSend: function onBeforeSend(e) {
+          return function (e) {};
+        },
+        onAfterSend: function onAfterSend(e) {
+          return function (e) {};
+        },
+        errors: {
+          onAjaxError: function onAjaxError(e) {
+            return function (e) {/* console.log(arguments);*/};
+          }
+        },
+        table: {
+          className: 'table table-hover table-condensed',
+          resetButton: {
+            className: 'btn btn-sm btn-warning',
+            title: 'Restablecer',
+            onReset: function onReset(e) {
+              return function (e) {};
+            }
+          },
+          thead: {
+            className: '',
+            actions: {
+              className: '',
+              cssTH: {
+                width: '130px',
+                minWidth: '130px'
+              },
+              component: function component(instance) {
+                return _react2.default.createElement(
+                  'button',
+                  null,
+                  instance.id
+                );
+              }
+            }
+          }
+        },
+        paginator: {
+          prevLink: 3,
+          nextLink: 3
+        },
+        columns: [{
+          title: 'Id',
+          name: 'id',
+          textEmpty: 'Sin nombre',
+          cssTH: {
+            width: '250px',
+            minWidth: '250px'
+          }
+        }, {
+          title: 'Nombre',
+          name: 'name',
+          textEmpty: 'Sin deatlle'
         }]
       } }));
     table2new = component;

@@ -97,7 +97,11 @@ var TR = function (_Component) {
         }),
         st.config.table.thead.actions ? _react2.default.createElement(
           'td',
-          { key: 'actions' },
+          {
+            key: 'actions',
+            style: st.config.table.thead.actions.style || {},
+            className: st.config.table.thead.actions.className || ''
+          },
           this.componentAction(o.element)
         ) : undefined
       );
