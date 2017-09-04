@@ -153,7 +153,7 @@ var HeaderBtn = function (_Component) {
           'div',
           { className: 'table2-input-search-container' },
           inputSearch
-        ) : 'undefined'
+        ) : undefined
       );
     }
   }]);
