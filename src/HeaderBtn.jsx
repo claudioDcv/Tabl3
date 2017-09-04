@@ -11,6 +11,7 @@ class HeaderBtn extends Component {
     super(props)
     this.update = this.update.bind(this)
     this.handlerChangeInput = this.handlerChangeInput.bind(this)
+    this.atLeastOneInput = this.atLeastOneInput.bind(this)
   }
   componentDidMount() {
     this.props.handlerInputSearch(HeaderBtn.nameInputSearch(this.props.element), {
@@ -21,6 +22,15 @@ class HeaderBtn extends Component {
   update() {
     const ordering = this.props.element.ordering || this.props.element.name
     this.props.updateState(RESULTS_ORDERING, ordering)
+  }
+  atLeastOneInput() {
+    let exist = false;
+    Object.keys(this.props.tableState.columns).forEach(i => {
+      if (this.props.tableState.columns[i].input) {
+        exist = true;
+      }
+    });
+    return exist;
   }
   makeClassName() {
     const paginator = this.props.tableState.paginator
@@ -89,9 +99,9 @@ class HeaderBtn extends Component {
     return (
       <div>
         {button}
-        <div className="table2-input-search-container">
+        {this.atLeastOneInput() ? <div className="table2-input-search-container">
           {inputSearch}
-        </div>
+        </div> : 'undefined'}
       </div>
     )
   }
