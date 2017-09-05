@@ -60,9 +60,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
         onAfterSend: function onAfterSend(e) {
           return function (e) {};
         },
-        onAfterRender: function onAfterRender(e) {
-          console.log(e);
-        },
+        onAfterRender: function onAfterRender(e) {},
         errors: {
           onAjaxError: function onAjaxError(e) {
             return function (e) {/* console.log(arguments);*/};
@@ -107,6 +105,12 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
           textEmpty: 'Sin deatlle',
           inputPlaceholder: 'Buscar',
           input: 'name__icontains'
+        }, {
+          title: 'Nombre',
+          name: 'noexist',
+          textEmpty: 'Sin deatlle',
+          inputPlaceholder: 'Buscar',
+          input: 'name__icontains'
         }]
       } }));
     table2new2 = component2;
@@ -117,6 +121,76 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
     table2new2Instance.updateState('PAGINATOR_NEXT_PAGE');
     table2new2Instance.updateState('RESULTS_ORDERING', 'name');
     table2new2Instance.resetToInitialState();
+    //table2new2Instance.compareOrderingParam('-name')
+    //table2new2Instance.compareOrderingParam('name')
+  });
+  test('create Table & asign className without columns', function () {
+    component2 = (0, _enzyme.mount)(_react2.default.createElement(_index2.default, {
+      config: {
+        ajax: {
+          url: 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a',
+          method: 'GET',
+          liveHeaders: function liveHeaders() {
+            return {
+              Authorization: 'JWT 298KJHkj1KJH'
+            };
+          }
+        },
+        conector: _ajax2.default,
+        debug: {
+          inputSearch: true,
+          paginator: true,
+          initiaAjax: true,
+          dataset: true
+        },
+        onBeforeSend: function onBeforeSend(e) {
+          return function (e) {};
+        },
+        onAfterSend: function onAfterSend(e) {
+          return function (e) {};
+        },
+        onAfterRender: function onAfterRender(e) {},
+        errors: {
+          onAjaxError: function onAjaxError(e) {
+            return function (e) {/* console.log(arguments);*/};
+          }
+        },
+        table: {
+          className: 'table table-hover table-condensed',
+          resetButton: {
+            className: 'btn btn-sm btn-warning',
+            title: 'Restablecer',
+            onReset: function onReset(e) {
+              return function (e) {};
+            }
+          },
+          thead: {
+            className: '',
+            actions: {
+              className: '',
+              cssTH: {
+                width: '130px',
+                minWidth: '130px'
+              },
+              isEmpty: 'bla',
+              style: { color: 'red' },
+              component: function component(instance) {
+                return _react2.default.createElement(
+                  'button',
+                  null,
+                  instance.id
+                );
+              }
+            }
+          }
+        },
+        testCol: true,
+        paginator: {
+          prevLink: 3,
+          nextLink: 3
+        }
+      } }));
+    table2new2 = component2;
     //table2new2Instance.compareOrderingParam('-name')
     //table2new2Instance.compareOrderingParam('name')
   });
@@ -155,13 +229,6 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
         },
         table: {
           className: 'table table-hover table-condensed',
-          resetButton: {
-            className: 'btn btn-sm btn-warning',
-            title: 'Restablecer',
-            onReset: function onReset(e) {
-              return function (e) {};
-            }
-          },
           thead: {
             className: '',
             actions: {
