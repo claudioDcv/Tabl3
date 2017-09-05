@@ -39,12 +39,12 @@
   "scripts": {
     "lint": "./node_modules/eslint/bin/eslint.js ./src",
     "dist": "babel src --out-dir dist",
-    "test": "./node_modules/.bin/jest --coverage",
+    "test": "./node_modules/.bin/jest --coverage --verbose",
     "codecov": "codecov --token=f5fbeb0b-9b44-4a68-bb7e-dcc4ca7bb1f8"
   },
-  "author": "",
+  "author": "claudio.dcv@gmail.com",
   "license": "ISC",
-  "description": "",
+  "description": "table pure server side, compatible Django REST Framework",
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
