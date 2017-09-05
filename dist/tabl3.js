@@ -63,7 +63,7 @@ var Table2 = function (_Component) {
 
     var prs = props;
     _this.name = 'React Table ServerSide';
-    _this.version = 'v1.0.44';
+    _this.version = 'v1.0.47';
     _this.initError = false;
     _this.state = {
       initiaAjax: _extends({}, prs.config.ajax),
