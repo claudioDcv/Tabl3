@@ -11,4 +11,4 @@ export const errorInitialTable = (state, props) => {
   }
   return !hasError
 }
-export const otherErro = () => 'test'
+export const otherError = () => 'test'

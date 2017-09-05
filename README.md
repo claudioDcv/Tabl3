@@ -328,3 +328,106 @@ export default () => (
   </div>
 );
 ```
+
+
+### Implementación final
+
+```javascript
+<div className="table-responsive table-2-responsive">
+  <Table2New
+    config={{
+      ajax: {
+        url: `${URL_LIST_BY_PMTDI_ID}${this.props.match.params.id}`,
+        method: 'GET',
+        liveHeaders: () => ({
+          Authorization: `JWT ${getUserData().token}`,
+        }),
+      },
+      conector,
+      debug: {
+        inputSearch: false,
+        paginator: false,
+        initiaAjax: false,
+        dataset: false,
+      },
+      onBeforeSend: () => '',
+      onAfterSend: () => '',
+      errors: {
+        onAjaxError: () => '',
+      },
+      table: {
+        className: 'table table-hover table-condensed',
+        thead: {
+          className: '',
+          actions: {
+            className: '',
+            cssTH: {
+              width: '100px',
+              minWidth: '100px',
+            },
+            component: instance => (!this.state.is_published ? (
+              <BtnEdit
+                to={`/pmtdi/view/${instance.pmtdi}/${instance.id}`}
+              />) : <BtnView
+                to={`/pmtdi/view/${instance.pmtdi}/${instance.id}
+                `}/>),
+          },
+        },
+      },
+      paginator: {
+        prevLink: 3,
+        nextLink: 3,
+      },
+      columns: [
+        {
+          title: _('type'),
+          name: 'type.name',
+          textEmpty: 'Sin Tipo',
+          ordering: false,
+        },
+        {
+          title: _('Start'),
+          name: 'programmedworkdetail.start_dt',
+          textEmpty: 'Sin Fecha',
+          ordering: false,
+          component: instance => (instance.details ? moment(instance.details.start_dt).format('DD-MM-YYYY H:mm:ss') : '--'),
+          style: {
+            minWidth: '200px',
+            maxWidth: '200px',
+          },
+        },
+        {
+          title: _('End'),
+          name: 'programmedworkdetail.end_dt',
+          textEmpty: 'Sin Fecha',
+          ordering: false,
+          component: instance => (instance.details ? moment(instance.details.end_dt).format('DD-MM-YYYY H:mm:ss') : '--'),
+          style: {
+            minWidth: '200px',
+            maxWidth: '200px',
+          },
+        },
+        {
+          title: _('Inspection'),
+          name: 'programmedworkdetail.requires_inspection',
+          textEmpty: 'Sin Estatus',
+          ordering: false,
+          component: instance => (
+            instance.details ? (instance.details.requires_inspection ? 'Si' : 'No') : '--'),
+        },
+        {
+          title: _('Status'),
+          name: 'programmedworkdetail.status',
+          ordering: false,
+          textEmpty: 'Sin Estatus',
+          component: instance => (instance.details ? resolveStatusProgrammedWork(instance.details.status) : '--'),
+          style: {
+            minWidth: '100px',
+            maxWidth: '100px',
+          },
+        },
+      ],
+    }}
+  />
+</div>
+```

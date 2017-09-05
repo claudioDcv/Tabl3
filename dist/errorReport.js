@@ -16,6 +16,6 @@ var errorInitialTable = exports.errorInitialTable = function errorInitialTable(s
   }
   return !hasError;
 };
-var otherErro = exports.otherErro = function otherErro() {
+var otherError = exports.otherError = function otherError() {
   return 'test';
 };

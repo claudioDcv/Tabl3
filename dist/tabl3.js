@@ -63,7 +63,7 @@ var Table2 = function (_Component) {
 
     var prs = props;
     _this.name = 'React Table ServerSide';
-    _this.version = 'v1.0.30';
+    _this.version = 'v1.0.47';
     _this.initError = false;
     _this.state = {
       initiaAjax: _extends({}, prs.config.ajax),
@@ -308,6 +308,9 @@ var Table2 = function (_Component) {
       var debug = st.config.debug;
       if (st.ajaxError) {
         return _react2.default.createElement('div', null);
+      }
+      if (!this.state.columns) {
+        return _react2.default.createElement('span', null);
       }
       return _react2.default.createElement(
         'div',

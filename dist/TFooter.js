@@ -41,7 +41,7 @@ var TFooter = function (_Component) {
       var state = this.props.tableState;
       return _react2.default.createElement(
         'tfoot',
-        null,
+        { className: state.paginator.pages > 1 ? 'active-paginator' : 'inactive-paginator' },
         _react2.default.createElement(
           'tr',
           null,

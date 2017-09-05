@@ -45,6 +45,7 @@ var HeaderBtn = function (_Component) {
 
     _this.update = _this.update.bind(_this);
     _this.handlerChangeInput = _this.handlerChangeInput.bind(_this);
+    _this.atLeastOneInput = _this.atLeastOneInput.bind(_this);
     return _this;
   }
 
@@ -61,6 +62,19 @@ var HeaderBtn = function (_Component) {
     value: function update() {
       var ordering = this.props.element.ordering || this.props.element.name;
       this.props.updateState(_const.RESULTS_ORDERING, ordering);
+    }
+  }, {
+    key: 'atLeastOneInput',
+    value: function atLeastOneInput() {
+      var _this2 = this;
+
+      var exist = false;
+      Object.keys(this.props.tableState.columns).forEach(function (i) {
+        if (_this2.props.tableState.columns[i].input) {
+          exist = true;
+        }
+      });
+      return exist;
     }
   }, {
     key: 'makeClassName',
@@ -135,11 +149,11 @@ var HeaderBtn = function (_Component) {
         'div',
         null,
         button,
-        _react2.default.createElement(
+        this.atLeastOneInput() ? _react2.default.createElement(
           'div',
           { className: 'table2-input-search-container' },
           inputSearch
-        )
+        ) : undefined
       );
     }
   }]);

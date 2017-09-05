@@ -6,7 +6,7 @@ class TFooter extends Component {
   render() {
     const state = this.props.tableState
     return (
-      <tfoot>
+      <tfoot className={state.paginator.pages > 1 ? 'active-paginator' : 'inactive-paginator'}>
         <tr>
           <td colSpan={state.columns.length + (state.config.table.thead.actions ? 1 : 0)}>
             {state.paginator.pages > 1

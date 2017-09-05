@@ -43,22 +43,18 @@ var TBody = function (_Component) {
   _createClass(TBody, [{
     key: 'endRender',
     value: function endRender(e, key) {
-      var _this2 = this;
-
       if (key + 1 === this.props.tableState.columns.length) {
-        setTimeout(function () {
-          if (_this2.props.tableState.config.onAfterRender) {
-            if (typeof _this2.props.tableState.config.onAfterRender === 'function') {
-              _this2.props.tableState.config.onAfterRender(_this2.props.tableState.paginator);
-            }
+        if (this.props.tableState.config.onAfterRender) {
+          if (typeof this.props.tableState.config.onAfterRender === 'function') {
+            this.props.tableState.config.onAfterRender(this.props.tableState.paginator);
           }
-        }, 0);
+        }
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       if (!this.props.tableState.dataset) {
         return _react2.default.createElement('tbody', null);
@@ -67,12 +63,12 @@ var TBody = function (_Component) {
         'tbody',
         null,
         this.props.tableState.dataset.results.map(function (e, key) {
-          _this3.endRender(e, key);
+          _this2.endRender(e, key);
           return _react2.default.createElement(_TR2.default, {
             key: (0, _core.makeKey)(key),
             element: e,
-            tableState: _this3.props.tableState,
-            updateState: _this3.props.updateState
+            tableState: _this2.props.tableState,
+            updateState: _this2.props.updateState
           });
         })
       );

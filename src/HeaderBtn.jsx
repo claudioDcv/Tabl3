@@ -101,7 +101,7 @@ class HeaderBtn extends Component {
         {button}
         {this.atLeastOneInput() ? <div className="table2-input-search-container">
           {inputSearch}
-        </div> : 'undefined'}
+        </div> : undefined}
       </div>
     )
   }

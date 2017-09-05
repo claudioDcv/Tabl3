@@ -33,7 +33,7 @@ class Thead extends Component {
     const state = this.props.tableState
     return (
       <thead className={thead.className}>
-        <tr>
+        {config.table.resetButton ? <tr>
           <td colSpan={state.columns.length + (state.config.table.thead.actions ? 1 : 0)}>
             {config.table.resetButton
               ? <button
@@ -44,7 +44,7 @@ class Thead extends Component {
                 </button>
               : undefined}
           </td>
-        </tr>
+        </tr> : undefined}
         <tr>
           {this.props.tableState.columns.map((e, key) => this.TH(e, key))}
           {thead.actions ? this.actions() : undefined}
