@@ -80,7 +80,7 @@ var Thead = function (_Component) {
       return _react2.default.createElement(
         'thead',
         { className: thead.className },
-        _react2.default.createElement(
+        config.table.resetButton ? _react2.default.createElement(
           'tr',
           null,
           _react2.default.createElement(
@@ -95,7 +95,7 @@ var Thead = function (_Component) {
               config.table.resetButton.title
             ) : undefined
           )
-        ),
+        ) : undefined,
         _react2.default.createElement(
           'tr',
           null,
