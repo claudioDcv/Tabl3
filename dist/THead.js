@@ -80,7 +80,7 @@ var Thead = function (_Component) {
       return _react2.default.createElement(
         'thead',
         { className: thead.className },
-        config.table.resetButton ? _react2.default.createElement(
+        config.table.resetButton || config.table.extraThead ? _react2.default.createElement(
           'tr',
           null,
           _react2.default.createElement(
@@ -93,7 +93,8 @@ var Thead = function (_Component) {
                 className: 'table2-btn-reset ' + config.table.resetButton.className
               },
               config.table.resetButton.title
-            ) : undefined
+            ) : undefined,
+            typeof config.table.extraThead === 'function' ? config.table.extraThead(this.props.tableState.paginator) : undefined
           )
         ) : undefined,
         _react2.default.createElement(

@@ -62,8 +62,8 @@ var Table2 = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Table2.__proto__ || Object.getPrototypeOf(Table2)).call(this, props));
 
     var prs = props;
-    _this.name = 'React Table ServerSide';
-    _this.version = 'v1.0.47';
+    _this.name = 'Tabl3';
+    _this.version = 'v1.0.52';
     _this.initError = false;
     _this.state = {
       initiaAjax: _extends({}, prs.config.ajax),
@@ -90,6 +90,7 @@ var Table2 = function (_Component) {
     value: function componentDidMount() {
       if ((0, _errorReport.errorInitialTable)(this, this.props)) {
         this.init();
+        this.handlerOnRender();
       } else {
         this.initError = true;
       }
@@ -101,6 +102,20 @@ var Table2 = function (_Component) {
         dataset: dataset,
         paginator: (0, _core.makePaginator)(dataset, opt)
       });
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      this.handlerOnRender();
+    }
+  }, {
+    key: 'handlerOnRender',
+    value: function handlerOnRender() {
+      if (this.state.config.onAfterRender) {
+        if (typeof this.state.config.onAfterRender === 'function') {
+          this.state.config.onAfterRender(this.state.paginator);
+        }
+      }
     }
   }, {
     key: 'updateState',

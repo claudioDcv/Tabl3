@@ -66,6 +66,15 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
             return function (e) {/* console.log(arguments);*/};
           }
         },
+        extraThead: function extraThead(paginator) {
+          return _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                console.log(paginator);
+              } },
+            'a'
+          );
+        },
         table: {
           className: 'table table-hover table-condensed',
           resetButton: {
@@ -253,7 +262,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
         },
         columns: [{
           title: 'Id',
-          name: 'id',
+          name: 'idd',
           textEmpty: 'Sin nombre',
           cssTH: {
             width: '250px',
