@@ -27,7 +27,7 @@ class Table2 extends Component {
     super(props)
     const prs = props
     this.name = 'React Table ServerSide'
-    this.version = 'v1.0.47'
+    this.version = 'v1.0.48'
     this.initError = false
     this.state = {
       initiaAjax: { ...prs.config.ajax },
@@ -50,6 +50,7 @@ class Table2 extends Component {
   componentDidMount() {
     if (errorInitialTable(this, this.props)) {
       this.init()
+      this.handlerOnRender()
     } else {
       this.initError = true;
     }
@@ -59,6 +60,16 @@ class Table2 extends Component {
       dataset,
       paginator: makePaginator(dataset, opt),
     })
+  }
+  componentDidUpdate() {
+    this.handlerOnRender()
+  }
+  handlerOnRender() {
+    if (this.state.config.onAfterRender) {
+      if(typeof this.state.config.onAfterRender === 'function'){
+        this.state.config.onAfterRender(this.state.paginator)
+      }
+    }
   }
   updateState(key, val) {
     const data = this.state

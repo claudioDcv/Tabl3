@@ -31,27 +31,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var TBody = function (_Component) {
   _inherits(TBody, _Component);
 
-  function TBody(props) {
+  function TBody() {
     _classCallCheck(this, TBody);
 
-    var _this = _possibleConstructorReturn(this, (TBody.__proto__ || Object.getPrototypeOf(TBody)).call(this, props));
-
-    _this.endRender = _this.endRender.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (TBody.__proto__ || Object.getPrototypeOf(TBody)).apply(this, arguments));
   }
 
   _createClass(TBody, [{
-    key: 'endRender',
-    value: function endRender(e, key) {
-      if (key + 1 === this.props.tableState.columns.length) {
-        if (this.props.tableState.config.onAfterRender) {
-          if (typeof this.props.tableState.config.onAfterRender === 'function') {
-            this.props.tableState.config.onAfterRender(this.props.tableState.paginator);
-          }
-        }
-      }
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -63,13 +49,14 @@ var TBody = function (_Component) {
         'tbody',
         null,
         this.props.tableState.dataset.results.map(function (e, key) {
-          _this2.endRender(e, key);
-          return _react2.default.createElement(_TR2.default, {
+          var comp = _react2.default.createElement(_TR2.default, {
             key: (0, _core.makeKey)(key),
             element: e,
             tableState: _this2.props.tableState,
             updateState: _this2.props.updateState
           });
+
+          return comp;
         })
       );
     }
