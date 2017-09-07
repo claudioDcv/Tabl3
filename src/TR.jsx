@@ -23,12 +23,7 @@ class TR extends Component {
   }
   constructor(props) {
     super(props)
-    this.update = this.update.bind(this)
     this.TDS = this.TDS.bind(this)
-  }
-  update() {
-    const val = 'hi'
-    this.props.updateState('now', val)
   }
   componentAction(o) {
     const actions = this.props.tableState.config.table.thead.actions

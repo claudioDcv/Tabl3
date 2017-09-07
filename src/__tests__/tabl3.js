@@ -46,6 +46,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
           errors: {
             onAjaxError: e => ((e) => { /* console.log(arguments);*/ }),
           },
+          extraThead: paginator => (<button onClick={() => { console.log(paginator); }}>a</button>),
           table: {
             className: 'table table-hover table-condensed',
             resetButton: {
@@ -208,7 +209,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
           columns: [
             {
               title: 'Id',
-              name: 'id',
+              name: 'idd',
               textEmpty: 'Sin nombre',
               cssTH: {
                 width: '250px',

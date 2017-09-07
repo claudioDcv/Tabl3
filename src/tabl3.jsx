@@ -26,8 +26,8 @@ class Table2 extends Component {
   constructor(props) {
     super(props)
     const prs = props
-    this.name = 'React Table ServerSide'
-    this.version = 'v1.0.48'
+    this.name = 'Tabl3'
+    this.version = 'v1.0.52'
     this.initError = false
     this.state = {
       initiaAjax: { ...prs.config.ajax },

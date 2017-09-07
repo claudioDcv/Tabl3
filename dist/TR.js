@@ -54,18 +54,11 @@ var TR = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (TR.__proto__ || Object.getPrototypeOf(TR)).call(this, props));
 
-    _this.update = _this.update.bind(_this);
     _this.TDS = _this.TDS.bind(_this);
     return _this;
   }
 
   _createClass(TR, [{
-    key: 'update',
-    value: function update() {
-      var val = 'hi';
-      this.props.updateState('now', val);
-    }
-  }, {
     key: 'componentAction',
     value: function componentAction(o) {
       var actions = this.props.tableState.config.table.thead.actions;

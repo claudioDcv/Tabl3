@@ -62,8 +62,8 @@ var Table2 = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Table2.__proto__ || Object.getPrototypeOf(Table2)).call(this, props));
 
     var prs = props;
-    _this.name = 'React Table ServerSide';
-    _this.version = 'v1.0.48';
+    _this.name = 'Tabl3';
+    _this.version = 'v1.0.52';
     _this.initError = false;
     _this.state = {
       initiaAjax: _extends({}, prs.config.ajax),
