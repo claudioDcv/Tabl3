@@ -46,7 +46,20 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
           errors: {
             onAjaxError: e => ((e) => { /* console.log(arguments);*/ }),
           },
+          paramsConection: {
+            offset: 'offset',
+            limit: 'limit',
+            count: 'count',
+            ordering: 'ordering',
+          },
           table: {
+            theadExtra: paginator => (<button
+              className="btn btn-default hidden"
+              onClick={
+                () => {
+                  console.log(paginator);
+                }}
+            >c</button>),
             className: 'table table-hover table-condensed',
             resetButton: {
               className: 'btn btn-sm btn-warning',
@@ -56,20 +69,28 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
             thead: {
               className: '',
               actions: {
-                className: '',
-                cssTH: {
+                title: 'Acciones',
+                className: 'claudio',
+                isEmpty: 'blah',
+                style: {
                   width: '130px',
                   minWidth: '130px',
                 },
-                isEmpty: 'bla',
-                style: { color: 'red' },
-                component: instance => (<button>{instance.id}</button>),
               },
             },
           },
+          columnsAction: {
+            style: { color: 'red' },
+            component: () => 2,
+          },
           paginator: {
+            className: 'pagination pagination-sm',
+            style: {
+              margin: '0px',
+            },
             prevLink: 3,
             nextLink: 3,
+            hidden: true,
           },
           columns: [
             {
@@ -208,7 +229,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
           columns: [
             {
               title: 'Id',
-              name: 'id',
+              name: 'idd',
               textEmpty: 'Sin nombre',
               cssTH: {
                 width: '250px',
@@ -233,10 +254,11 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
     expect(table2new.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
   });
 
-
+  let table = null;
   test('create Table & no input', () => {
     component = mount(
       <Tabl3
+        ref={e => table = e}
         config={{
           ajax: {
             url: 'http://127.0.0.1:8000/colors/?limit=4',
@@ -259,26 +281,36 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
           errors: {
             onAjaxError: e => ((e) => { /* console.log(arguments);*/ }),
           },
+          paramsConection: {
+            offset: 'offset',
+            limit: 'limit',
+            count: 'count',
+            ordering: 'ordering',
+          },
           table: {
             className: 'table table-hover table-condensed',
-            resetButton: {
-              className: 'btn btn-sm btn-warning',
-              title: 'Restablecer',
-              onReset: e => ((e) => { }),
-            },
             thead: {
               className: '',
               actions: {
-                className: '',
-                cssTH: {
+                title: 'Acciones',
+                className: 'claudio',
+                isEmpty: 'blah',
+                style: {
                   width: '130px',
                   minWidth: '130px',
                 },
-                component: instance => (<button>{instance.id}</button>),
               },
             },
           },
+          columnsAction: {
+            style: { color: 'red' },
+            component: self.TableEditTemplate,
+          },
           paginator: {
+            className: 'pagination pagination-sm',
+            style: {
+              margin: '0px',
+            },
             prevLink: 3,
             nextLink: 3,
           },
@@ -302,6 +334,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
         }}/>
     );
     table2new = component;
+    component.instance().paginator(),
     expect(table2new.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
   });
 

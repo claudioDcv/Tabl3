@@ -23,15 +23,10 @@ class TR extends Component {
   }
   constructor(props) {
     super(props)
-    this.update = this.update.bind(this)
     this.TDS = this.TDS.bind(this)
   }
-  update() {
-    const val = 'hi'
-    this.props.updateState('now', val)
-  }
   componentAction(o) {
-    const actions = this.props.tableState.config.table.thead.actions
+    const actions = this.props.tableState.config.columnsAction
     if (actions.component) {
       return actions.component(o)
     }
@@ -53,11 +48,11 @@ class TR extends Component {
     return (
       <tr>
         {st.columns.map((col, key) => td(col, key))}
-        {st.config.table.thead.actions
+        {st.config.columnsAction
           ? <td
               key="actions"
-              style={st.config.table.thead.actions.style || {}}
-              className={st.config.table.thead.actions.className || ''}
+              style={st.config.columnsAction.style || {}}
+              className={st.config.columnsAction.className || ''}
             >
               {this.componentAction(o.element)}
             </td>

@@ -431,3 +431,293 @@ export default () => (
   />
 </div>
 ```
+
+## Otra implementacion con atributos nuevos
+
+```javascript
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { _ } from 'i18n';
+
+export default (
+  self,
+  getUserData,
+  TableSelectAsync,
+  API,
+  AREAS_API,
+  TableDateYYYYMM,
+  PMTDI_REQUESTERS_API,
+  PMTDI_TYPES_API,
+  randomInt,
+  TableSelect,
+  conector,
+) => ({
+  ajax: {
+    url: self.state.url,
+    method: 'GET',
+    liveHeaders: () => ({
+      Authorization: `JWT ${getUserData().token}`,
+    }),
+  },
+  paramsConection: {
+    offset: 'offset',
+    limit: 'limit',
+    count: 'count',
+    ordering: 'ordering',
+  },
+  conector,
+  debug: {
+    inputSearch: false,
+    paginator: false,
+    initiaAjax: false,
+    dataset: false,
+  },
+  onBeforeSend: e => self.loadPMTDIList(e),
+  onAfterSend: e => self.setPMTDIList(e),
+  errors: {
+    onAjaxError: self.callbackAjaxError,
+  },
+  table: {
+    className: 'table table-hover table-condensed table-bordered',
+    resetButton: {
+      className: 'btn btn-sm btn-warning',
+      title: 'Restablecer',
+      onReset: self.callbackReset,
+    },
+    theadExtra: () => (<button
+      className="btn btn-default hidden"
+      onClick={
+        () => {}}
+    >test</button>),
+    thead: {
+      className: '',
+      actions: {
+        title: 'Acciones',
+        className: 'claudio',
+        style: {
+          width: '130px',
+          minWidth: '130px',
+        },
+      },
+    },
+  },
+  columnsAction: {
+    style: { color: 'red' },
+    component: self.TableEditTemplate,
+  },
+  paginator: {
+    className: 'pagination pagination-sm',
+    style: {
+      margin: '0px',
+    },
+    prevLink: 3,
+    nextLink: 3,
+    hidden: true,
+  },
+  columns: [
+    {
+      title: _('nemo'),
+      name: 'natural_key',
+      textEmpty: 'Sin nombre',
+      cssTH: {
+        width: '250px',
+        minWidth: '250px',
+      },
+      component: instance => (
+        <span>
+          <Link to={`/pmtdi/view/${instance.id}`}>
+            {instance.natural_key}
+          </Link>
+        </span>
+      ),
+      input: 'natural_key__icontains',
+      inputClassName: 'form-control',
+    },
+    {
+      title: _('Zone'),
+      name: 'zone.name',
+      ordering: 'zone',
+      style: {
+        minWidth: '220px',
+        maxWidth: '220px',
+      },
+      component: instance => (
+        <span>
+          <div>
+            {`${instance.id} `}
+          </div> {instance.name}
+        </span>
+      ),
+      /* required if selec input exist */
+      componentInput: TableSelectAsync,
+      input: 'zone',
+      inputProps: {
+        className: 'menu-outer-top',
+        optionRenderer: e => (
+          <span>
+            <div>
+              {`${instance.id} `}
+            </div> {instance.category}
+          </span>
+        ),
+      },
+      getData: (input, callback) => {
+        const list = () => apiEndpoint().then(e => e.data.map(i => ({
+          ...i,
+          label: i.name,
+          value: i.id,
+        })));
+        list()
+          .then(e => callback(null, { options: e, complete: true }))
+          .catch(() => callback(null, { options: [], complete: true }));
+      },
+    },
+    {
+      title: _('Area'),
+      name: 'area',
+      ordering: 'area',
+      cssTH: {
+        width: '230px',
+        minWidth: '230px',
+      },
+      /* required if selec input exist */
+      componentInput: TableSelectAsync,
+      input: 'area',
+      getData: (input, callback) => {
+        const areasList = () => apiEndpoint().then(
+          e => e.data.map(i => ({
+            ...i,
+            label: i.name,
+            value: i.id,
+          })));
+        areasList()
+          .then(e => callback(null, { options: e, complete: true }))
+          .catch(() => callback(null, { options: [], complete: true }));
+      },
+    },
+    {
+      title: _('period'),
+      name: 'period',
+      textEmpty: 'Sin Fecha',
+      style: {
+        minWidth: '120px',
+        maxWidth: '120px',
+      },
+      componentInput: TableDateYYYYMM,
+      input: 'period',
+      component: instance => instance.status.slice(0, -3),
+    },
+    {
+      title: 'Solicitante',
+      name: 'requester.name',
+      ordering: 'requester',
+      cssTH: {
+        width: '200px',
+        minWidth: '200px',
+      },
+      /* required if selec input exist */
+      componentInput: TableSelectAsync,
+      input: 'requester',
+      getData: (input, callback) => {
+        const list = () => apiEndpoint().then(
+          e => e.data.map(i => ({
+            ...i,
+            label: i.name,
+            value: i.id,
+          })));
+        list()
+          .then(e => callback(null, { options: e, complete: true }))
+          .catch(() => callback(null, { options: [], complete: true }));
+      },
+    },
+    {
+      title: _('type'),
+      name: 'type.name',
+      ordering: 'type',
+      cssTH: {
+        width: '200px',
+        minWidth: '200px',
+      },
+      /* required if selec input exist */
+      componentInput: TableSelectAsync,
+      input: 'type',
+      getData: (input, callback) => {
+        const list = () => apiEndpoint().then(
+          e => e.data.map(i => ({
+            ...i,
+            label: i.name,
+            value: i.id,
+          })));
+        list()
+          .then(e => callback(null, { options: e, complete: true }))
+          .catch(() => callback(null, { options: [], complete: true }));
+      },
+    },
+    {
+      title: _('detail'),
+      name: 'detail',
+      textEmpty: 'Sin deatlle',
+      input: 'detail__icontains',
+      component: e => (<div title={e.detail} style={{ width: '360px' }}className="ellipsis-text">{e.detail}</div>),
+    },
+    {
+      title: 'Trabajos',
+      name: 'total_work',
+      ordering: false,
+      cssTH: { textAlign: 'right' },
+      style: {
+        textAlign: 'right',
+      },
+    },
+    {
+      title: 'Aceptados',
+      name: 'work_accepted',
+      ordering: false,
+      style: {
+        textAlign: 'right',
+      },
+    },
+    {
+      title: 'Rechazados',
+      name: 'work_rejected',
+      ordering: false,
+      style: {
+        textAlign: 'right',
+      },
+    },
+    {
+      title: 'Infactibles',
+      name: 'work_infeasible',
+      ordering: false,
+      style: {
+        textAlign: 'right',
+      },
+    },
+    {
+      title: 'Pendientes',
+      name: 'work_pending',
+      ordering: false,
+      style: {
+        textAlign: 'right',
+      },
+    },
+    {
+      title: 'Publicado',
+      name: 'is_published',
+      cssTH: {
+        width: '150px',
+        minWidth: '150px',
+      },
+      input: 'is_published',
+      inputProps: {
+        noResultsText: 'No se encontro coincidencia',
+      },
+      componentInput: TableSelect,
+      data: [{ label: 'SI', value: 'true' }, { label: 'NO', value: 'false' }],
+      component: instance => (instance.isSuperUser ? 'SI' : 'NO'),
+    },
+  ],
+});
+
+```

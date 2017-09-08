@@ -61,11 +61,11 @@ var Thead = function (_Component) {
       var thead = this.props.tableState.config.table.thead;
       return _react2.default.createElement(
         'th',
-        { style: thead.actions.cssTH },
+        { style: thead.actions.style, className: thead.actions.className },
         _react2.default.createElement(
           'span',
           { className: 'table2-btn-ordering-disabled' },
-          _es2.default.actions
+          thead.actions.title || _es2.default.actions
         )
       );
     }
@@ -80,7 +80,7 @@ var Thead = function (_Component) {
       return _react2.default.createElement(
         'thead',
         { className: thead.className },
-        config.table.resetButton ? _react2.default.createElement(
+        config.table.resetButton || config.table.extraThead ? _react2.default.createElement(
           'tr',
           null,
           _react2.default.createElement(
@@ -93,7 +93,8 @@ var Thead = function (_Component) {
                 className: 'table2-btn-reset ' + config.table.resetButton.className
               },
               config.table.resetButton.title
-            ) : undefined
+            ) : undefined,
+            typeof config.table.theadExtra === 'function' ? config.table.theadExtra(this.props.tableState.paginator) : undefined
           )
         ) : undefined,
         _react2.default.createElement(

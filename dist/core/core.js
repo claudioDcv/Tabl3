@@ -38,7 +38,15 @@ var dotNotationToObject = exports.dotNotationToObject = function dotNotationToOb
   }, obj);
 };
 
-var makePaginator = exports.makePaginator = function makePaginator(data, opt) {
+var makePaginator = exports.makePaginator = function makePaginator(data, opt, redefineParamsConection) {
+
+  if (redefineParamsConection) {
+    var params = redefineParamsConection;
+    _const.API.OFFSET = params.offset || _const.API.OFFSET;
+    _const.API.LIMIT = params.limit || _const.API.LIMIT;
+    _const.API.COUNT = params.count || _const.API.COUNT;
+    _const.API.ORDERING = params.ordering || _const.API.ORDERING;
+  }
   var service = data;
   var pg = {};
 

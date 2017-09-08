@@ -4,11 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _tabl = require('./tabl3');
+var _Tabl = require('./Tabl3');
 
-var _tabl2 = _interopRequireDefault(_tabl);
+var _Tabl2 = _interopRequireDefault(_Tabl);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _tabl2.default;
+exports.default = _Tabl2.default;
 module.exports = exports['default'];

@@ -54,21 +54,14 @@ var TR = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (TR.__proto__ || Object.getPrototypeOf(TR)).call(this, props));
 
-    _this.update = _this.update.bind(_this);
     _this.TDS = _this.TDS.bind(_this);
     return _this;
   }
 
   _createClass(TR, [{
-    key: 'update',
-    value: function update() {
-      var val = 'hi';
-      this.props.updateState('now', val);
-    }
-  }, {
     key: 'componentAction',
     value: function componentAction(o) {
-      var actions = this.props.tableState.config.table.thead.actions;
+      var actions = this.props.tableState.config.columnsAction;
       if (actions.component) {
         return actions.component(o);
       }
@@ -95,12 +88,12 @@ var TR = function (_Component) {
         st.columns.map(function (col, key) {
           return td(col, key);
         }),
-        st.config.table.thead.actions ? _react2.default.createElement(
+        st.config.columnsAction ? _react2.default.createElement(
           'td',
           {
             key: 'actions',
-            style: st.config.table.thead.actions.style || {},
-            className: st.config.table.thead.actions.className || ''
+            style: st.config.columnsAction.style || {},
+            className: st.config.columnsAction.className || ''
           },
           this.componentAction(o.element)
         ) : undefined

@@ -5,6 +5,19 @@ import Paginator from './Paginator'
 class TFooter extends Component {
   render() {
     const state = this.props.tableState
+    let paginator = (<ul
+      style={this.props.tableState.config.paginator.style || {}}
+      className={`table-2-new-paginator-null ${this.props.tableState.config.paginator.className || ''}`}
+    />)
+    if (this.props.extract) {
+      if (state.paginator.pages > 1 ) {
+        paginator = (<Paginator
+         tableState={this.props.tableState}
+         updateState={this.props.updateState}
+         />)
+      }
+      return paginator
+    }
     return (
       <tfoot className={state.paginator.pages > 1 ? 'active-paginator' : 'inactive-paginator'}>
         <tr>
@@ -25,6 +38,7 @@ class TFooter extends Component {
 TFooter.propTypes = {
   updateState: PropTypes.func,
   tableState: PropTypes.object,
+  extract: PropTypes.bool,
 }
 
 export default TFooter

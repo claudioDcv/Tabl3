@@ -39,6 +39,19 @@ var TFooter = function (_Component) {
     key: 'render',
     value: function render() {
       var state = this.props.tableState;
+      var paginator = _react2.default.createElement('ul', {
+        style: this.props.tableState.config.paginator.style || {},
+        className: 'table-2-new-paginator-null ' + (this.props.tableState.config.paginator.className || '')
+      });
+      if (this.props.extract) {
+        if (state.paginator.pages > 1) {
+          paginator = _react2.default.createElement(_Paginator2.default, {
+            tableState: this.props.tableState,
+            updateState: this.props.updateState
+          });
+        }
+        return paginator;
+      }
       return _react2.default.createElement(
         'tfoot',
         { className: state.paginator.pages > 1 ? 'active-paginator' : 'inactive-paginator' },
@@ -63,7 +76,8 @@ var TFooter = function (_Component) {
 
 TFooter.propTypes = {
   updateState: _propTypes2.default.func,
-  tableState: _propTypes2.default.object
+  tableState: _propTypes2.default.object,
+  extract: _propTypes2.default.bool
 };
 
 exports.default = TFooter;

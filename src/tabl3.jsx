@@ -15,7 +15,7 @@ import { updateOrCreateParamFromQS, makePaginator, removeParamFromQS } from './c
 
 import { errorInitialTable } from './errorReport'
 
-class Table2 extends Component {
+class Tabl3 extends Component {
   static formatJSON(st, val) {
     return (
       <pre style={{ textAlign: 'left' }}>
@@ -26,8 +26,8 @@ class Table2 extends Component {
   constructor(props) {
     super(props)
     const prs = props
-    this.name = 'React Table ServerSide'
-    this.version = 'v1.0.47'
+    this.name = 'Tabl3'
+    this.version = 'v1.1.10'
     this.initError = false
     this.state = {
       initiaAjax: { ...prs.config.ajax },
@@ -46,10 +46,12 @@ class Table2 extends Component {
     this.updateQueryStringOut = this.updateQueryStringOut.bind(this)
     this.handlerInputSearch = this.handlerInputSearch.bind(this)
     this.resetToInitialState = this.resetToInitialState.bind(this)
+    this.paginator = this.paginator.bind(this)
   }
   componentDidMount() {
     if (errorInitialTable(this, this.props)) {
       this.init()
+      this.handlerOnRender()
     } else {
       this.initError = true;
     }
@@ -57,8 +59,18 @@ class Table2 extends Component {
   setStateService(dataset, response, opt) {
     this.setState({
       dataset,
-      paginator: makePaginator(dataset, opt),
+      paginator: makePaginator(dataset, opt, this.props.config.paramsConection),
     })
+  }
+  componentDidUpdate() {
+    this.handlerOnRender()
+  }
+  handlerOnRender() {
+    if (this.state.config.onAfterRender) {
+      if(typeof this.state.config.onAfterRender === 'function'){
+        this.state.config.onAfterRender(this.state.paginator)
+      }
+    }
   }
   updateState(key, val) {
     const data = this.state
@@ -231,6 +243,10 @@ class Table2 extends Component {
   init() {
     this.ajax()
   }
+  paginator() {
+    const st = this.state
+    return (<TFooter tableState={st} updateState={this.updateState} extract />);
+  }
   render() {
     const st = this.state
     const debug = st.config.debug
@@ -251,14 +267,18 @@ class Table2 extends Component {
             resetToInitialState={this.resetToInitialState}
           />
           <TBody tableState={st} updateState={this.updateState} />
-          <TFooter tableState={st} updateState={this.updateState} />
+          {st.config.paginator.hidden ?
+            undefined
+            :
+            (<TFooter tableState={st} updateState={this.updateState} />)
+          }
         </table>
         {this.state.config.debug
           ? <div>
-              {debug.inputSearch ? Table2.formatJSON(st, 'inputSearch') : undefined}
-              {debug.initiaAjax ? Table2.formatJSON(st, 'initiaAjax') : undefined}
-              {debug.paginator ? Table2.formatJSON(st, 'paginator') : undefined}
-              {debug.dataset ? Table2.formatJSON(st, 'dataset') : undefined}
+              {debug.inputSearch ? Tabl3.formatJSON(st, 'inputSearch') : undefined}
+              {debug.initiaAjax ? Tabl3.formatJSON(st, 'initiaAjax') : undefined}
+              {debug.paginator ? Tabl3.formatJSON(st, 'paginator') : undefined}
+              {debug.dataset ? Tabl3.formatJSON(st, 'dataset') : undefined}
             </div>
           : null}
       </div>
@@ -266,8 +286,8 @@ class Table2 extends Component {
   }
 }
 
-Table2.propTypes = {
-  config: PropTypes.object
+Tabl3.propTypes = {
+  config: PropTypes.object,
 };
 
-export default Table2
+export default Tabl3
