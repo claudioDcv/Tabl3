@@ -27,7 +27,7 @@ class Tabl3 extends Component {
     super(props)
     const prs = props
     this.name = 'Tabl3'
-    this.version = 'v1.1.10'
+    this.version = 'v1.1.12'
     this.initError = false
     this.state = {
       initiaAjax: { ...prs.config.ajax },

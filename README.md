@@ -33,7 +33,7 @@ yarn dist
 
 render() {
   return (
-    <Table2New
+    <Tabl3
       config={}
     />
   );
@@ -46,7 +46,7 @@ render() {
 
 render() {
   return (
-    <Table2New
+    <Table3
       ref={(e) => { this.table = e; }}
       config={}
     />
@@ -231,6 +231,8 @@ render() {
 
 - `nuevo` onAfterRender `{function} | optional` : se ejecuta cada vez que termina el render de los trs
 
+- `nuevo` extraThead `{function} | optional` : posibilita la opcion de agregar componentes en `thead` superior donde esta el botton reset
+
 ### el argumento `component` contiene otros atributos
 
 1: el elemento en el row
@@ -242,7 +244,7 @@ render() {
 ```javascript
 import React from 'react';
 import axios from 'axios';
-import Table2 from '../../Table2New/Index';
+import Tabl3 from '../../tabl3/tabl3';
 import { InputSelectAsync } from '../../Table2New/plugins/index';
 
 const baseUrl = 'http://127.0.0.1:8000';
@@ -265,7 +267,7 @@ export default () => (
   <div>
     <h1>About Us</h1>
     <p>Hello Medium!</p>
-    <Table2
+    <Tabl3
       ref={(e) => { this.table = e; }}
       config={{
         ajax: {
@@ -350,6 +352,7 @@ export default () => (
         initiaAjax: false,
         dataset: false,
       },
+      extraThead: paginator => (<button onClick={() => { console.log(paginator); }}>a</button>),
       onBeforeSend: () => '',
       onAfterSend: () => '',
       errors: {

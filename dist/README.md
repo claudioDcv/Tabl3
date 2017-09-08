@@ -231,6 +231,8 @@ render() {
 
 - `nuevo` onAfterRender `{function} | optional` : se ejecuta cada vez que termina el render de los trs
 
+- `nuevo` extraThead `{function} | optional` : posibilita la opcion de agregar componentes en `thead` superior donde esta el botton reset
+
 ### el argumento `component` contiene otros atributos
 
 1: el elemento en el row
@@ -350,6 +352,7 @@ export default () => (
         initiaAjax: false,
         dataset: false,
       },
+      extraThead: paginator => (<button onClick={() => { console.log(paginator); }}>a</button>),
       onBeforeSend: () => '',
       onAfterSend: () => '',
       errors: {
