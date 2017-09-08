@@ -94,11 +94,7 @@ var Thead = function (_Component) {
               },
               config.table.resetButton.title
             ) : undefined,
-<<<<<<< HEAD
             typeof config.table.theadExtra === 'function' ? config.table.theadExtra(this.props.tableState.paginator) : undefined
-=======
-            typeof config.table.extraThead === 'function' ? config.table.extraThead(this.props.tableState.paginator) : undefined
->>>>>>> 44e2e7eb9d36c237a28277720078d0808f8d51ec
           )
         ) : undefined,
         _react2.default.createElement(

@@ -63,11 +63,7 @@ var Tabl3 = function (_Component) {
 
     var prs = props;
     _this.name = 'Tabl3';
-<<<<<<< HEAD:dist/Tabl3.js
-    _this.version = 'v1.1.10';
-=======
-    _this.version = 'v1.0.52';
->>>>>>> 44e2e7eb9d36c237a28277720078d0808f8d51ec:dist/tabl3.js
+    _this.version = 'v1.1.14';
     _this.initError = false;
     _this.state = {
       initiaAjax: _extends({}, prs.config.ajax),
