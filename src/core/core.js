@@ -12,7 +12,15 @@ export const extractParamFromQS = extractParam
 export const extractParamFromQSInt = extractParamInt
 export const dotNotationToObject = (obj, key) => key.split('.').reduce((o, i) => o[i], obj)
 
-export const makePaginator = (data, opt) => {
+export const makePaginator = (data, opt, redefineParamsConection) => {
+
+  if (redefineParamsConection) {
+    let params = redefineParamsConection
+    API.OFFSET = params.offset || API.OFFSET
+    API.LIMIT = params.limit || API.LIMIT
+    API.COUNT = params.count || API.COUNT
+    API.ORDERING = params.ordering || API.ORDERING
+  }
   const service = data
   const pg = {}
 

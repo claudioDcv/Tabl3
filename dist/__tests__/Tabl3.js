@@ -66,6 +66,13 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
             return function (e) {/* console.log(arguments);*/};
           }
         },
+<<<<<<< HEAD:dist/__tests__/Tabl3.js
+        paramsConection: {
+          offset: 'offset',
+          limit: 'limit',
+          count: 'count',
+          ordering: 'ordering'
+=======
         extraThead: function extraThead(paginator) {
           return _react2.default.createElement(
             'button',
@@ -74,8 +81,21 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
               } },
             'a'
           );
+>>>>>>> 44e2e7eb9d36c237a28277720078d0808f8d51ec:dist/__tests__/tabl3.js
         },
         table: {
+          theadExtra: function theadExtra(paginator) {
+            return _react2.default.createElement(
+              'button',
+              {
+                className: 'btn btn-default hidden',
+                onClick: function onClick() {
+                  console.log(paginator);
+                }
+              },
+              'c'
+            );
+          },
           className: 'table table-hover table-condensed',
           resetButton: {
             className: 'btn btn-sm btn-warning',
@@ -87,26 +107,30 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
           thead: {
             className: '',
             actions: {
-              className: '',
-              cssTH: {
+              title: 'Acciones',
+              className: 'claudio',
+              isEmpty: 'blah',
+              style: {
                 width: '130px',
                 minWidth: '130px'
-              },
-              isEmpty: 'bla',
-              style: { color: 'red' },
-              component: function component(instance) {
-                return _react2.default.createElement(
-                  'button',
-                  null,
-                  instance.id
-                );
               }
             }
           }
         },
+        columnsAction: {
+          style: { color: 'red' },
+          component: function component() {
+            return 2;
+          }
+        },
         paginator: {
+          className: 'pagination pagination-sm',
+          style: {
+            margin: '0px'
+          },
           prevLink: 3,
-          nextLink: 3
+          nextLink: 3,
+          hidden: true
         },
         columns: [{
           title: 'Nombre',
@@ -283,8 +307,12 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
     expect(table2new.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
   });
 
+  var table = null;
   test('create Table & no input', function () {
     component = (0, _enzyme.mount)(_react2.default.createElement(_index2.default, {
+      ref: function ref(e) {
+        return table = e;
+      },
       config: {
         ajax: {
           url: 'http://127.0.0.1:8000/colors/?limit=4',
@@ -313,34 +341,36 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
             return function (e) {/* console.log(arguments);*/};
           }
         },
+        paramsConection: {
+          offset: 'offset',
+          limit: 'limit',
+          count: 'count',
+          ordering: 'ordering'
+        },
         table: {
           className: 'table table-hover table-condensed',
-          resetButton: {
-            className: 'btn btn-sm btn-warning',
-            title: 'Restablecer',
-            onReset: function onReset(e) {
-              return function (e) {};
-            }
-          },
           thead: {
             className: '',
             actions: {
-              className: '',
-              cssTH: {
+              title: 'Acciones',
+              className: 'claudio',
+              isEmpty: 'blah',
+              style: {
                 width: '130px',
                 minWidth: '130px'
-              },
-              component: function component(instance) {
-                return _react2.default.createElement(
-                  'button',
-                  null,
-                  instance.id
-                );
               }
             }
           }
         },
+        columnsAction: {
+          style: { color: 'red' },
+          component: self.TableEditTemplate
+        },
         paginator: {
+          className: 'pagination pagination-sm',
+          style: {
+            margin: '0px'
+          },
           prevLink: 3,
           nextLink: 3
         },
@@ -359,7 +389,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
         }]
       } }));
     table2new = component;
-    expect(table2new.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
+    component.instance().paginator(), expect(table2new.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
   });
 
   test('state.config.ajax.url === http://127.0.0.1:8000/colors/?limit=4', function () {

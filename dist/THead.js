@@ -61,11 +61,11 @@ var Thead = function (_Component) {
       var thead = this.props.tableState.config.table.thead;
       return _react2.default.createElement(
         'th',
-        { style: thead.actions.cssTH },
+        { style: thead.actions.style, className: thead.actions.className },
         _react2.default.createElement(
           'span',
           { className: 'table2-btn-ordering-disabled' },
-          _es2.default.actions
+          thead.actions.title || _es2.default.actions
         )
       );
     }
@@ -94,7 +94,11 @@ var Thead = function (_Component) {
               },
               config.table.resetButton.title
             ) : undefined,
+<<<<<<< HEAD
+            typeof config.table.theadExtra === 'function' ? config.table.theadExtra(this.props.tableState.paginator) : undefined
+=======
             typeof config.table.extraThead === 'function' ? config.table.extraThead(this.props.tableState.paginator) : undefined
+>>>>>>> 44e2e7eb9d36c237a28277720078d0808f8d51ec
           )
         ) : undefined,
         _react2.default.createElement(

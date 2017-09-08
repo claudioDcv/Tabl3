@@ -26,7 +26,7 @@ class TR extends Component {
     this.TDS = this.TDS.bind(this)
   }
   componentAction(o) {
-    const actions = this.props.tableState.config.table.thead.actions
+    const actions = this.props.tableState.config.columnsAction
     if (actions.component) {
       return actions.component(o)
     }
@@ -48,11 +48,11 @@ class TR extends Component {
     return (
       <tr>
         {st.columns.map((col, key) => td(col, key))}
-        {st.config.table.thead.actions
+        {st.config.columnsAction
           ? <td
               key="actions"
-              style={st.config.table.thead.actions.style || {}}
-              className={st.config.table.thead.actions.className || ''}
+              style={st.config.columnsAction.style || {}}
+              className={st.config.columnsAction.className || ''}
             >
               {this.componentAction(o.element)}
             </td>

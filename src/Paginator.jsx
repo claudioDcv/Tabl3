@@ -57,7 +57,11 @@ class Paginator extends Component {
   }
   render() {
     return (
-      <ul className="pagination pagination-sm">
+      <ul
+        className={`table-2-new-paginator ${
+          this.props.tableState.config.paginator.className || ''}`}
+        style={this.props.tableState.config.paginator.style || {}}
+      >
         <PrevBtn tableState={this.props.tableState} updateState={this.props.updateState} />
         {this.numberPagination()}
         <NextBtn tableState={this.props.tableState} updateState={this.props.updateState} />

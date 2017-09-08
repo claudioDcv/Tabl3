@@ -20,9 +20,9 @@ class Thead extends Component {
   actions() {
     const thead = this.props.tableState.config.table.thead
     return (
-      <th style={thead.actions.cssTH}>
+      <th style={thead.actions.style} className={thead.actions.className}>
         <span className="table2-btn-ordering-disabled">
-          {_.actions}
+          {thead.actions.title || _.actions}
         </span>
       </th>
     )
@@ -43,8 +43,8 @@ class Thead extends Component {
                   {config.table.resetButton.title}
                 </button>
               : undefined}
-            {typeof config.table.extraThead === 'function' ? config.table.extraThead(
-              this.props.tableState.paginator) : undefined} 
+            {typeof config.table.theadExtra === 'function' ? config.table.theadExtra(
+              this.props.tableState.paginator) : undefined}
           </td>
         </tr> : undefined}
         <tr>

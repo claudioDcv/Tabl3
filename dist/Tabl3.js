@@ -42,10 +42,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Table2 = function (_Component) {
-  _inherits(Table2, _Component);
+var Tabl3 = function (_Component) {
+  _inherits(Tabl3, _Component);
 
-  _createClass(Table2, null, [{
+  _createClass(Tabl3, null, [{
     key: 'formatJSON',
     value: function formatJSON(st, val) {
       return _react2.default.createElement(
@@ -56,14 +56,18 @@ var Table2 = function (_Component) {
     }
   }]);
 
-  function Table2(props) {
-    _classCallCheck(this, Table2);
+  function Tabl3(props) {
+    _classCallCheck(this, Tabl3);
 
-    var _this = _possibleConstructorReturn(this, (Table2.__proto__ || Object.getPrototypeOf(Table2)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Tabl3.__proto__ || Object.getPrototypeOf(Tabl3)).call(this, props));
 
     var prs = props;
     _this.name = 'Tabl3';
+<<<<<<< HEAD:dist/Tabl3.js
+    _this.version = 'v1.1.10';
+=======
     _this.version = 'v1.0.52';
+>>>>>>> 44e2e7eb9d36c237a28277720078d0808f8d51ec:dist/tabl3.js
     _this.initError = false;
     _this.state = {
       initiaAjax: _extends({}, prs.config.ajax),
@@ -82,10 +86,11 @@ var Table2 = function (_Component) {
     _this.updateQueryStringOut = _this.updateQueryStringOut.bind(_this);
     _this.handlerInputSearch = _this.handlerInputSearch.bind(_this);
     _this.resetToInitialState = _this.resetToInitialState.bind(_this);
+    _this.paginator = _this.paginator.bind(_this);
     return _this;
   }
 
-  _createClass(Table2, [{
+  _createClass(Tabl3, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       if ((0, _errorReport.errorInitialTable)(this, this.props)) {
@@ -100,7 +105,7 @@ var Table2 = function (_Component) {
     value: function setStateService(dataset, response, opt) {
       this.setState({
         dataset: dataset,
-        paginator: (0, _core.makePaginator)(dataset, opt)
+        paginator: (0, _core.makePaginator)(dataset, opt, this.props.config.paramsConection)
       });
     }
   }, {
@@ -317,6 +322,12 @@ var Table2 = function (_Component) {
       this.ajax();
     }
   }, {
+    key: 'paginator',
+    value: function paginator() {
+      var st = this.state;
+      return _react2.default.createElement(_TFooter2.default, { tableState: st, updateState: this.updateState, extract: true });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var st = this.state;
@@ -341,26 +352,26 @@ var Table2 = function (_Component) {
             resetToInitialState: this.resetToInitialState
           }),
           _react2.default.createElement(_TBody2.default, { tableState: st, updateState: this.updateState }),
-          _react2.default.createElement(_TFooter2.default, { tableState: st, updateState: this.updateState })
+          st.config.paginator.hidden ? undefined : _react2.default.createElement(_TFooter2.default, { tableState: st, updateState: this.updateState })
         ),
         this.state.config.debug ? _react2.default.createElement(
           'div',
           null,
-          debug.inputSearch ? Table2.formatJSON(st, 'inputSearch') : undefined,
-          debug.initiaAjax ? Table2.formatJSON(st, 'initiaAjax') : undefined,
-          debug.paginator ? Table2.formatJSON(st, 'paginator') : undefined,
-          debug.dataset ? Table2.formatJSON(st, 'dataset') : undefined
+          debug.inputSearch ? Tabl3.formatJSON(st, 'inputSearch') : undefined,
+          debug.initiaAjax ? Tabl3.formatJSON(st, 'initiaAjax') : undefined,
+          debug.paginator ? Tabl3.formatJSON(st, 'paginator') : undefined,
+          debug.dataset ? Tabl3.formatJSON(st, 'dataset') : undefined
         ) : null
       );
     }
   }]);
 
-  return Table2;
+  return Tabl3;
 }(_react.Component);
 
-Table2.propTypes = {
+Tabl3.propTypes = {
   config: _propTypes2.default.object
 };
 
-exports.default = Table2;
+exports.default = Tabl3;
 module.exports = exports['default'];

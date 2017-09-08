@@ -61,7 +61,7 @@ var TR = function (_Component) {
   _createClass(TR, [{
     key: 'componentAction',
     value: function componentAction(o) {
-      var actions = this.props.tableState.config.table.thead.actions;
+      var actions = this.props.tableState.config.columnsAction;
       if (actions.component) {
         return actions.component(o);
       }
@@ -88,12 +88,12 @@ var TR = function (_Component) {
         st.columns.map(function (col, key) {
           return td(col, key);
         }),
-        st.config.table.thead.actions ? _react2.default.createElement(
+        st.config.columnsAction ? _react2.default.createElement(
           'td',
           {
             key: 'actions',
-            style: st.config.table.thead.actions.style || {},
-            className: st.config.table.thead.actions.className || ''
+            style: st.config.columnsAction.style || {},
+            className: st.config.columnsAction.className || ''
           },
           this.componentAction(o.element)
         ) : undefined

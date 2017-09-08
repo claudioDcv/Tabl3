@@ -107,7 +107,10 @@ var Paginator = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'ul',
-        { className: 'pagination pagination-sm' },
+        {
+          className: 'table-2-new-paginator ' + (this.props.tableState.config.paginator.className || ''),
+          style: this.props.tableState.config.paginator.style || {}
+        },
         _react2.default.createElement(_PrevBtn2.default, { tableState: this.props.tableState, updateState: this.props.updateState }),
         this.numberPagination(),
         _react2.default.createElement(_NextBtn2.default, { tableState: this.props.tableState, updateState: this.props.updateState })
