@@ -66,22 +66,11 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
             return function (e) {/* console.log(arguments);*/};
           }
         },
-<<<<<<< HEAD:dist/__tests__/Tabl3.js
         paramsConection: {
           offset: 'offset',
           limit: 'limit',
           count: 'count',
           ordering: 'ordering'
-=======
-        extraThead: function extraThead(paginator) {
-          return _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                console.log(paginator);
-              } },
-            'a'
-          );
->>>>>>> 44e2e7eb9d36c237a28277720078d0808f8d51ec:dist/__tests__/tabl3.js
         },
         table: {
           theadExtra: function theadExtra(paginator) {
