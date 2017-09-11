@@ -76,17 +76,21 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
         table: {
           theadExtra: function theadExtra(paginator) {
             return _react2.default.createElement(
-              'th',
+              'tr',
               null,
               _react2.default.createElement(
-                'button',
-                {
-                  className: 'btn btn-default hidden',
-                  onClick: function onClick() {
-                    console.log(paginator);
-                  }
-                },
-                'c'
+                'th',
+                null,
+                _react2.default.createElement(
+                  'button',
+                  {
+                    className: 'btn btn-default hidden',
+                    onClick: function onClick() {
+                      console.log(paginator);
+                    }
+                  },
+                  'c'
+                )
               )
             );
           },

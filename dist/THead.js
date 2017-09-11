@@ -84,17 +84,13 @@ var Thead = function (_Component) {
       var state = this.props.tableState;
       return _react2.default.createElement(
         'thead',
-        {
-          className: thead.className
-        },
-        config.table.resetButton || config.table.theadExtra ? _react2.default.createElement(
+        { className: thead.className },
+        typeof config.table.theadExtra === 'function' ? config.table.theadExtra(this.props.tableState.paginator, config.table.resetButton) : config.table.resetButton ? _react2.default.createElement(
           'tr',
           null,
-          config.table.resetButton ? _react2.default.createElement(
+          _react2.default.createElement(
             'td',
-            {
-              colSpan: state.columns.length + (state.config.table.thead.actions ? 1 : 0)
-            },
+            { colSpan: state.columns.length + (state.config.table.thead.actions ? 1 : 0) },
             _react2.default.createElement(
               'button',
               {
@@ -103,8 +99,7 @@ var Thead = function (_Component) {
               },
               config.table.resetButton.title
             )
-          ) : undefined,
-          typeof config.table.theadExtra === 'function' ? config.table.theadExtra(this.props.tableState.paginator) : undefined
+          )
         ) : undefined,
         _react2.default.createElement(
           'tr',

@@ -54,13 +54,13 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
             ordering: 'ordering',
           },
           table: {
-            theadExtra: paginator => (<th><button
+            theadExtra: paginator => (<tr><th><button
               className="btn btn-default hidden"
               onClick={
                 () => {
                   console.log(paginator);
                 }}
-            >c</button></th>),
+            >c</button></th></tr>),
             className: 'table table-hover table-condensed',
             resetButton: {
               className: 'btn btn-sm btn-warning',
