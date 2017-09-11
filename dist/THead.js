@@ -46,7 +46,12 @@ var Thead = function (_Component) {
     value: function TH(e, key) {
       return _react2.default.createElement(
         'th',
-        { key: (0, _core.makeKey)(key), className: e.className, style: e.cssTH },
+        {
+          key: (0, _core.makeKey)(key),
+          rowSpan: e.rowSpan || 1,
+          className: e.className,
+          style: e.cssTH
+        },
         _react2.default.createElement(_HeaderBtn2.default, {
           element: e,
           tableState: this.props.tableState,

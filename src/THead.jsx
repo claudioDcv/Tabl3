@@ -7,7 +7,12 @@ import HeaderBtn from './HeaderBtn'
 class Thead extends Component {
   TH(e, key) {
     return (
-      <th key={makeKey(key)} className={e.className} style={e.cssTH}>
+      <th
+        key={makeKey(key)}
+        rowSpan={e.rowSpan || 1}
+        className={e.className}
+        style={e.cssTH}
+      >
         <HeaderBtn
           element={e}
           tableState={this.props.tableState}
