@@ -724,3 +724,117 @@ export default (
 });
 
 ```
+
+### Implementación 3
+
+```javascript
+import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
+import Tabl3 from 'tabl3';
+import moment from 'moment';
+import { getUserData } from '../../services/jwtSession';
+import conector from '../../conector/ajax';
+import { atUrl } from '../../services/at_api';
+import { _ } from '../../services/CONST';
+
+class AtTableList extends Component {
+  render() {
+    return (
+      <div>
+        <Tabl3
+          config={{
+            ajax: {
+              url: atUrl,
+              method: 'GET',
+              liveHeaders: () => ({
+                Authorization: `JWT ${getUserData().token}`,
+              }),
+            },
+            paramsConection: {
+              offset: 'offset',
+              limit: 'limit',
+              count: 'count',
+              ordering: 'ordering',
+            },
+            conector,
+            debug: {
+              inputSearch: false,
+              paginator: false,
+              initiaAjax: false,
+              dataset: false,
+            },
+            onBeforeSend: e => console.log(e),
+            onAfterSend: e => console.log(e),
+            errors: {
+              onAjaxError: e => console.log(e),
+            },
+            table: {
+              className: 'table-box-form table table-hover table-condensed table-bordered',
+              theadExtra: () => (<tr>
+                <td rowSpan="0" colSpan="5" />
+                <td>{_('Installations')}</td>
+              </tr>),
+              thead: {
+                className: '',
+                actions: {
+                  title: 'Acciones',
+                  className: 'claudio',
+                  style: {
+                    width: '130px',
+                    minWidth: '130px',
+                  },
+                },
+              },
+            },
+            columnsAction: {
+              component: i => <span>{i.id}</span>,
+            },
+            paginator: {
+              className: 'pagination pagination-sm',
+              style: {
+                margin: '0px',
+                height: '40px',
+              },
+              prevLink: 3,
+              nextLink: 3,
+              hidden: true,
+            },
+            columns: [
+              {
+                title: _('ID'),
+                name: 'id',
+                rowSpan: 1,
+              },
+              {
+                title: _('naturalKey'),
+                name: 'natural_key',
+                rowSpan: 2,
+                cssTH: { color: 'red' },
+              },
+              {
+                title: _('name'),
+                name: 'name',
+              },
+              {
+                title: _('period'),
+                name: 'programmed_work.created_at',
+                component: i => (
+                  <span>
+                    {moment(i.programmed_work.details.start_dt).format('YYYY-MM-DD')} - {moment(i.programmed_work.details.end_dt).format('YYYY-MM-DD')}
+                  </span>
+                ),
+              },
+            ],
+          }}
+        />
+      </div>
+    );
+  }
+}
+
+// AtTableList.propTypes = {
+//   list: PropTypes.array.isRequired,
+// };
+
+export default AtTableList;
+```
