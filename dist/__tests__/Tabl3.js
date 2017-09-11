@@ -20,7 +20,8 @@ var _removeParamFromQS2 = _interopRequireDefault(_removeParamFromQS);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-jest.mock('../conector/ajax');
+jest.mock('../conector/ajax'); /* eslint-disable */
+
 
 describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
   test('remove limit', function () {
@@ -75,14 +76,18 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
         table: {
           theadExtra: function theadExtra(paginator) {
             return _react2.default.createElement(
-              'button',
-              {
-                className: 'btn btn-default hidden',
-                onClick: function onClick() {
-                  console.log(paginator);
-                }
-              },
-              'c'
+              'th',
+              null,
+              _react2.default.createElement(
+                'button',
+                {
+                  className: 'btn btn-default hidden',
+                  onClick: function onClick() {
+                    console.log(paginator);
+                  }
+                },
+                'c'
+              )
             );
           },
           className: 'table table-hover table-condensed',

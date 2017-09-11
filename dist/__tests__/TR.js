@@ -10,14 +10,6 @@ var _TR = require('../TR');
 
 var _TR2 = _interopRequireDefault(_TR);
 
-var _ajax = require('../conector/ajax');
-
-var _ajax2 = _interopRequireDefault(_ajax);
-
-var _removeParamFromQS = require('../core/removeParamFromQS');
-
-var _removeParamFromQS2 = _interopRequireDefault(_removeParamFromQS);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 jest.mock('../conector/ajax');

@@ -46,7 +46,12 @@ var Thead = function (_Component) {
     value: function TH(e, key) {
       return _react2.default.createElement(
         'th',
-        { key: (0, _core.makeKey)(key), className: e.className, style: e.cssTH },
+        {
+          key: (0, _core.makeKey)(key),
+          rowSpan: e.rowSpan || 1,
+          className: e.className,
+          style: e.cssTH
+        },
         _react2.default.createElement(_HeaderBtn2.default, {
           element: e,
           tableState: this.props.tableState,
@@ -80,22 +85,24 @@ var Thead = function (_Component) {
       return _react2.default.createElement(
         'thead',
         { className: thead.className },
-        config.table.resetButton || config.table.extraThead ? _react2.default.createElement(
+        config.table.resetButton || config.table.theadExtra ? _react2.default.createElement(
           'tr',
           null,
-          _react2.default.createElement(
+          config.table.resetButton ? _react2.default.createElement(
             'td',
-            { colSpan: state.columns.length + (state.config.table.thead.actions ? 1 : 0) },
-            config.table.resetButton ? _react2.default.createElement(
+            {
+              colSpan: state.columns.length + (state.config.table.thead.actions ? 1 : 0)
+            },
+            _react2.default.createElement(
               'button',
               {
                 onClick: this.props.resetToInitialState,
                 className: 'table2-btn-reset ' + config.table.resetButton.className
               },
               config.table.resetButton.title
-            ) : undefined,
-            typeof config.table.theadExtra === 'function' ? config.table.theadExtra(this.props.tableState.paginator) : undefined
-          )
+            )
+          ) : undefined,
+          typeof config.table.theadExtra === 'function' ? config.table.theadExtra(this.props.tableState.paginator) : undefined
         ) : undefined,
         _react2.default.createElement(
           'tr',
