@@ -85,7 +85,7 @@ var Thead = function (_Component) {
       return _react2.default.createElement(
         'thead',
         { className: thead.className },
-        config.table.resetButton || config.table.extraThead ? _react2.default.createElement(
+        config.table.resetButton || config.table.theadExtra ? _react2.default.createElement(
           'tr',
           null,
           config.table.resetButton ? _react2.default.createElement(
