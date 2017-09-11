@@ -37,7 +37,9 @@ class Thead extends Component {
     const config = this.props.tableState.config
     const state = this.props.tableState
     return (
-      <thead className={thead.className}>
+      <thead
+        className={thead.className}
+      >
         {config.table.resetButton || config.table.theadExtra ? (
           <tr>
             {config.table.resetButton ? (

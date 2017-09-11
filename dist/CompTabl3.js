@@ -63,7 +63,7 @@ var Tabl3 = function (_Component) {
 
     var prs = props;
     _this.name = 'Tabl3';
-    _this.version = 'v1.1.22';
+    _this.version = 'v1.1.24';
     _this.initError = false;
     _this.state = {
       initiaAjax: _extends({}, prs.config.ajax),

@@ -84,7 +84,9 @@ var Thead = function (_Component) {
       var state = this.props.tableState;
       return _react2.default.createElement(
         'thead',
-        { className: thead.className },
+        {
+          className: thead.className
+        },
         config.table.resetButton || config.table.theadExtra ? _react2.default.createElement(
           'tr',
           null,
