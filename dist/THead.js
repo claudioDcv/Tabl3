@@ -90,7 +90,9 @@ var Thead = function (_Component) {
           null,
           config.table.resetButton ? _react2.default.createElement(
             'td',
-            { colSpan: state.columns.length + (state.config.table.thead.actions ? 1 : 0) },
+            {
+              colSpan: state.columns.length + (state.config.table.thead.actions ? 1 : 0)
+            },
             _react2.default.createElement(
               'button',
               {
