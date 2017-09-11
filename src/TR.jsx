@@ -50,6 +50,7 @@ class TR extends Component {
         {st.columns.map((col, key) => td(col, key))}
         {st.config.columnsAction
           ? <td
+              rowSpan={st.columns.rowSpan || 1}
               key="actions"
               style={st.config.columnsAction.style || {}}
               className={st.config.columnsAction.className || ''}
