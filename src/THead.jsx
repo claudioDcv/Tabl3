@@ -48,9 +48,9 @@ class Thead extends Component {
                   {config.table.resetButton.title}
                 </button>
               : undefined}
-            {typeof config.table.theadExtra === 'function' ? config.table.theadExtra(
-              this.props.tableState.paginator) : undefined}
           </td>
+          {typeof config.table.theadExtra === 'function' ? config.table.theadExtra(
+            this.props.tableState.paginator) : undefined}
         </tr> : undefined}
         <tr>
           {this.props.tableState.columns.map((e, key) => this.TH(e, key))}

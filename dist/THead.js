@@ -98,9 +98,9 @@ var Thead = function (_Component) {
                 className: 'table2-btn-reset ' + config.table.resetButton.className
               },
               config.table.resetButton.title
-            ) : undefined,
-            typeof config.table.theadExtra === 'function' ? config.table.theadExtra(this.props.tableState.paginator) : undefined
-          )
+            ) : undefined
+          ),
+          typeof config.table.theadExtra === 'function' ? config.table.theadExtra(this.props.tableState.paginator) : undefined
         ) : undefined,
         _react2.default.createElement(
           'tr',
