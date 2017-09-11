@@ -39,16 +39,14 @@ class Thead extends Component {
     return (
       <thead className={thead.className}>
         {config.table.resetButton || config.table.extraThead ? <tr>
-          <td colSpan={state.columns.length + (state.config.table.thead.actions ? 1 : 0)}>
-            {config.table.resetButton
-              ? <button
-                  onClick={this.props.resetToInitialState}
-                  className={`table2-btn-reset ${config.table.resetButton.className}`}
-                >
-                  {config.table.resetButton.title}
-                </button>
-              : undefined}
-          </td>
+          {config.table.resetButton ? <td colSpan={state.columns.length + (state.config.table.thead.actions ? 1 : 0)}>
+            <button
+              onClick={this.props.resetToInitialState}
+              className={`table2-btn-reset ${config.table.resetButton.className}`}
+            >
+              {config.table.resetButton.title}
+            </button>
+          </td>: undefined}
           {typeof config.table.theadExtra === 'function' ? config.table.theadExtra(
             this.props.tableState.paginator) : undefined}
         </tr> : undefined}

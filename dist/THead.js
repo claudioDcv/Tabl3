@@ -88,18 +88,18 @@ var Thead = function (_Component) {
         config.table.resetButton || config.table.extraThead ? _react2.default.createElement(
           'tr',
           null,
-          _react2.default.createElement(
+          config.table.resetButton ? _react2.default.createElement(
             'td',
             { colSpan: state.columns.length + (state.config.table.thead.actions ? 1 : 0) },
-            config.table.resetButton ? _react2.default.createElement(
+            _react2.default.createElement(
               'button',
               {
                 onClick: this.props.resetToInitialState,
                 className: 'table2-btn-reset ' + config.table.resetButton.className
               },
               config.table.resetButton.title
-            ) : undefined
-          ),
+            )
+          ) : undefined,
           typeof config.table.theadExtra === 'function' ? config.table.theadExtra(this.props.tableState.paginator) : undefined
         ) : undefined,
         _react2.default.createElement(
