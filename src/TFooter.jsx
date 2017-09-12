@@ -6,8 +6,8 @@ class TFooter extends Component {
   render() {
     const state = this.props.tableState
     let paginator = (<ul
-      style={this.props.tableState.config.paginator.style || {}}
-      className={`table-2-new-paginator-null ${this.props.tableState.config.paginator.className || ''}`}
+      style={(this.props.tableState.config.paginator || {}).style || {}}
+      className={`table-2-new-paginator-null ${(this.props.tableState.config.paginator || {}).className || 'pagination pagination-sm'}`}
     />)
     if (this.props.extract) {
       if (state.paginator.pages > 1 ) {
