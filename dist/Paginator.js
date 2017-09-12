@@ -60,6 +60,13 @@ var Paginator = function (_Component) {
       var paginator = this.props.tableState.paginator;
       var current = paginator.current;
       if (paginator) {
+        if (!config.prevLink && parseInt(config.prevLink, 10) !== 0) {
+          config.prevLink = 3;
+        }
+        if (!config.nextLink && parseInt(config.nextLink, 10) !== 0) {
+          config.nextLink = 3;
+        }
+
         var lengthPagation = [];
         var min = current - config.prevLink < 1 ? 1 : current - config.prevLink;
         var currNextLink = paginator.current + config.nextLink;

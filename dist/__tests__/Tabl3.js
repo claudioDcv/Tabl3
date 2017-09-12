@@ -552,7 +552,6 @@ describe("Tabl3 Generate Error", function () {
 });
 
 describe("Tabl3 onAjaxError", function () {
-
   var inputTest = function inputTest(handlerChangeInput, instance, value) {
     var hdc = handlerChangeInput;
     return _react2.default.createElement('input', { value: value, onChange: hdc });
@@ -615,5 +614,118 @@ describe("Tabl3 onAjaxError", function () {
       } }));
     var instanceTableError = tableError.instance();
     expect(instanceTableError.initError).toEqual(false);
+  });
+});
+
+describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
+  test('create Table without Paginator', function () {
+    component2 = (0, _enzyme.mount)(_react2.default.createElement(_index2.default, {
+      config: {
+        ajax: {
+          url: 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a',
+          method: 'GET',
+          liveHeaders: function liveHeaders() {
+            return {
+              Authorization: 'JWT 298KJHkj1KJH'
+            };
+          }
+        },
+        conector: _ajax2.default,
+        debug: {
+          inputSearch: true,
+          paginator: true,
+          initiaAjax: true,
+          dataset: true
+        },
+        onBeforeSend: function onBeforeSend(e) {
+          return function (e) {};
+        },
+        onAfterSend: function onAfterSend(e) {
+          return function (e) {};
+        },
+        onAfterRender: function onAfterRender(e) {},
+        errors: {
+          onAjaxError: function onAjaxError(e) {
+            return function (e) {/* console.log(arguments);*/};
+          }
+        },
+        paramsConection: {
+          offset: 'offset',
+          limit: 'limit',
+          count: 'count',
+          ordering: 'ordering'
+        },
+        table: {
+          theadExtra: function theadExtra(paginator) {
+            return _react2.default.createElement(
+              'tr',
+              null,
+              _react2.default.createElement(
+                'th',
+                null,
+                _react2.default.createElement(
+                  'button',
+                  {
+                    className: 'btn btn-default hidden',
+                    onClick: function onClick() {
+                      console.log(paginator);
+                    }
+                  },
+                  'c'
+                )
+              )
+            );
+          },
+          className: 'table table-hover table-condensed',
+          resetButton: {
+            className: 'btn btn-sm btn-warning',
+            title: 'Restablecer',
+            onReset: function onReset(e) {
+              return function (e) {};
+            }
+          },
+          thead: {
+            className: '',
+            actions: {
+              title: 'Acciones',
+              className: 'claudio',
+              isEmpty: 'blah',
+              style: {
+                width: '130px',
+                minWidth: '130px'
+              }
+            }
+          }
+        },
+        columnsAction: {
+          style: { color: 'red' },
+          component: function component() {
+            return 2;
+          }
+        },
+        columns: [{
+          title: 'Nombre',
+          name: 'name',
+          textEmpty: 'Sin deatlle',
+          inputPlaceholder: 'Buscar',
+          input: 'name__icontains'
+        }, {
+          title: 'Nombre',
+          name: 'noexist',
+          textEmpty: 'Sin deatlle',
+          inputPlaceholder: 'Buscar',
+          input: 'name__icontains'
+        }]
+      } }));
+    table2new2 = component2;
+    expect(table2new2.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
+    var table2new2Instance = component2.instance();
+    table2new2Instance.updateState('PAGINATOR_GOTO_PAGE', 1);
+    table2new2Instance.updateState('PAGINATOR_PREV_PAGE');
+    table2new2Instance.updateState('PAGINATOR_NEXT_PAGE');
+    table2new2Instance.updateState('RESULTS_ORDERING', 'name');
+    table2new2Instance.resetToInitialState();
+    //table2new2Instance.compareOrderingParam('-name')
+    //table2new2Instance.compareOrderingParam('name')
   });
 });
