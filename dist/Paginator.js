@@ -56,7 +56,7 @@ var Paginator = function (_Component) {
     value: function numberPagination() {
       var _this2 = this;
 
-      var config = this.props.tableState.config.paginator;
+      var config = this.props.tableState.config.paginator || {};
       var paginator = this.props.tableState.paginator;
       var current = paginator.current;
       if (paginator) {
@@ -115,8 +115,8 @@ var Paginator = function (_Component) {
       return _react2.default.createElement(
         'ul',
         {
-          className: 'table-2-new-paginator ' + (this.props.tableState.config.paginator.className || ''),
-          style: this.props.tableState.config.paginator.style || {}
+          className: 'table-2-new-paginator ' + ((this.props.tableState.config.paginator || {}).className || 'pagination pagination-sm'),
+          style: (this.props.tableState.config.paginator || {}).style || {}
         },
         _react2.default.createElement(_PrevBtn2.default, { tableState: this.props.tableState, updateState: this.props.updateState }),
         this.numberPagination(),

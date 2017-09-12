@@ -63,7 +63,7 @@ var Tabl3 = function (_Component) {
 
     var prs = props;
     _this.name = 'Tabl3';
-    _this.version = 'v1.1.26';
+    _this.version = 'v1.1.27';
     _this.initError = false;
     _this.state = {
       initiaAjax: _extends({}, prs.config.ajax),
@@ -348,7 +348,7 @@ var Tabl3 = function (_Component) {
             resetToInitialState: this.resetToInitialState
           }),
           _react2.default.createElement(_TBody2.default, { tableState: st, updateState: this.updateState }),
-          st.config.paginator ? st.config.paginator.hidden ? undefined : _react2.default.createElement(_TFooter2.default, { tableState: st, updateState: this.updateState }) : undefined
+          (st.config.paginator || {}).hidden ? undefined : _react2.default.createElement(_TFooter2.default, { tableState: st, updateState: this.updateState })
         ),
         this.state.config.debug ? _react2.default.createElement(
           'div',

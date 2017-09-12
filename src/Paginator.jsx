@@ -15,7 +15,7 @@ class Paginator extends Component {
     this.props.updateState(key, val)
   }
   numberPagination() {
-    const config = this.props.tableState.config.paginator
+    const config = this.props.tableState.config.paginator || {}
     const paginator = this.props.tableState.paginator
     const current = paginator.current
     if (paginator) {
@@ -66,8 +66,8 @@ class Paginator extends Component {
     return (
       <ul
         className={`table-2-new-paginator ${
-          this.props.tableState.config.paginator.className || ''}`}
-        style={this.props.tableState.config.paginator.style || {}}
+          (this.props.tableState.config.paginator || {}).className || 'pagination pagination-sm'}`}
+        style={(this.props.tableState.config.paginator || {}).style || {}}
       >
         <PrevBtn tableState={this.props.tableState} updateState={this.props.updateState} />
         {this.numberPagination()}
