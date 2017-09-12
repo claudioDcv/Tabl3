@@ -18,10 +18,14 @@ var _removeParamFromQS = require('../core/removeParamFromQS');
 
 var _removeParamFromQS2 = _interopRequireDefault(_removeParamFromQS);
 
+var _extractParamFromQS = require('../core/extractParamFromQS');
+
+var _extractParamFromQS2 = _interopRequireDefault(_extractParamFromQS);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-jest.mock('../conector/ajax'); /* eslint-disable */
-
+/* eslint-disable */
+jest.mock('../conector/ajax');
 
 describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
   test('remove limit', function () {
@@ -29,6 +33,9 @@ describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&orde
   });
   test('remove limit false', function () {
     expect((0, _removeParamFromQS2.default)('name__', 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a')).toEqual('http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a');
+  });
+  test('extractParamFromQS', function () {
+    expect((0, _extractParamFromQS2.default)('name')).toEqual('');
   });
 });
 

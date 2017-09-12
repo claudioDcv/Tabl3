@@ -5,6 +5,8 @@ import { mount } from 'enzyme';
 import Tabl3 from '../index';
 import conector from '../conector/ajax';
 import removeParamFromQS from '../core/removeParamFromQS';
+import extractParamFromQS from '../core/extractParamFromQS';
+
 
 jest.mock('../conector/ajax');
 
@@ -14,6 +16,9 @@ describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&orde
   });
   test('remove limit false', () => {
     expect(removeParamFromQS('name__', 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a')).toEqual('http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a');
+  });
+  test('extractParamFromQS', () => {
+    expect(extractParamFromQS('name')).toEqual('');
   });
 });
 
