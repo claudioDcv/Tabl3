@@ -1,2 +1,2 @@
-import Tabl3 from './Tabl3';
+import Tabl3 from './CompTabl3';
 export default Tabl3;

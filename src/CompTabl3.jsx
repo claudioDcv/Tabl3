@@ -27,7 +27,7 @@ class Tabl3 extends Component {
     super(props)
     const prs = props
     this.name = 'Tabl3'
-    this.version = 'v1.1.12'
+    this.version = 'v1.1.28'
     this.initError = false
     this.state = {
       initiaAjax: { ...prs.config.ajax },
@@ -287,7 +287,7 @@ class Tabl3 extends Component {
             resetToInitialState={this.resetToInitialState}
           />
           <TBody tableState={st} updateState={this.updateState} />
-          {st.config.paginator.hidden ?
+          {(st.config.paginator || {}).hidden ?
             undefined
             :
             (<TFooter tableState={st} updateState={this.updateState} />)

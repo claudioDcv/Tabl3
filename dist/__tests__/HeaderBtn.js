@@ -6,40 +6,38 @@ var _react2 = _interopRequireDefault(_react);
 
 var _enzyme = require('enzyme');
 
-var _TFooter = require('../TFooter');
+var _HeaderBtn = require('../HeaderBtn');
 
-var _TFooter2 = _interopRequireDefault(_TFooter);
+var _HeaderBtn2 = _interopRequireDefault(_HeaderBtn);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 jest.mock('../conector/ajax');
 
 var props = {
+  handlerInputSearch: function handlerInputSearch(e) {},
   updateState: function updateState(e) {},
-  extract: true,
+  element: {
+    name: 'name',
+    ordering: 'name',
+    orderingBy: 'name'
+  },
   tableState: {
     config: {
-      table: {
-        thead: {}
-      },
       columnsAction: function columnsAction(e) {
         console.log(e);
-      },
-      paginator: {
-        style: {}
       }
     },
     columns: [{
       id: 1
     }],
     paginator: {
-      pages: 0
+      orderingBy: 'name'
     }
   }
-
 };
-describe("TFooter ", function () {
-  test('create TFooter', function () {
-    (0, _enzyme.mount)(_react2.default.createElement(_TFooter2.default, props));
+describe("HeaderBtn ", function () {
+  test('create HeaderBtn', function () {
+    (0, _enzyme.mount)(_react2.default.createElement(_HeaderBtn2.default, props));
   });
 });

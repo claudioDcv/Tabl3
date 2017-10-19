@@ -1,37 +1,32 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import TFooter from '../TFooter';
+import HeaderBtn from '../HeaderBtn';
 
 jest.mock('../conector/ajax');
 
  const props = {
+   handlerInputSearch: e => {},
    updateState: e => {},
-   extract: true,
+   element: {
+     name: 'name',
+     ordering: 'name',
+     orderingBy: 'name',
+   },
    tableState: {
      config: {
-       table: {
-         thead: {
-         },
-       },
        columnsAction: e => { console.log(e);},
-       paginator: {
-         style: {},
-       },
      },
      columns: [{
        id: 1,
      }],
      paginator: {
-       pages: 0,
-     },
+       orderingBy: 'name',
+     }
    },
-
  }
-describe("TFooter ", function () {
-  test('create TFooter', () => {
-    mount(
-      <TFooter {...props} />
-   )
+describe("HeaderBtn ", function () {
+  test('create HeaderBtn', () => {
+    mount(<HeaderBtn {...props} />)
   });
 });

@@ -6,9 +6,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _enzyme = require('enzyme');
 
-var _TFooter = require('../TFooter');
+var _Paginator = require('../Paginator');
 
-var _TFooter2 = _interopRequireDefault(_TFooter);
+var _Paginator2 = _interopRequireDefault(_Paginator);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16,30 +16,24 @@ jest.mock('../conector/ajax');
 
 var props = {
   updateState: function updateState(e) {},
-  extract: true,
   tableState: {
     config: {
-      table: {
-        thead: {}
-      },
       columnsAction: function columnsAction(e) {
         console.log(e);
-      },
-      paginator: {
-        style: {}
       }
     },
     columns: [{
       id: 1
     }],
     paginator: {
-      pages: 0
+      current: 2
     }
   }
-
 };
-describe("TFooter ", function () {
-  test('create TFooter', function () {
-    (0, _enzyme.mount)(_react2.default.createElement(_TFooter2.default, props));
+describe("Paginator ", function () {
+  test('create Paginator', function () {
+    var component = (0, _enzyme.mount)(_react2.default.createElement(_Paginator2.default, props));
+    var tableInstance = component.instance();
+    tableInstance.update('k', 'v');
   });
 });
