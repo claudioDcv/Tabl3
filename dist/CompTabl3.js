@@ -270,12 +270,32 @@ var Tabl3 = function (_Component) {
         Object.keys(o).forEach(function (v) {
           if (Object.prototype.hasOwnProperty.call(o, v)) {
             if (o[v].value) {
-              url = (0, _core.updateOrCreateParamFromQS)(url, o[v].search, o[v].value);
+              console.log(o[v]);
+              if (o[v].search instanceof Array && typeof o[v].value === 'string') {
+                o[v].search.forEach(function (e) {
+                  url = (0, _core.updateOrCreateParamFromQS)(url, e, o[v].value);
+                });
+              }
+              if (o[v].search instanceof Array && o[v].value instanceof Array) {
+                o[v].search.forEach(function (e, i) {
+                  url = (0, _core.updateOrCreateParamFromQS)(url, e, o[v].value[i]);
+                });
+              } else {
+                url = (0, _core.updateOrCreateParamFromQS)(url, o[v].search, o[v].value);
+              }
             } else {
-              url = (0, _core.removeParamFromQS)(o[v].search, url);
+              console.log(o[v]);
+              if (o[v].search instanceof Array) {
+                o[v].search.forEach(function (e) {
+                  url = (0, _core.removeParamFromQS)(e, url);
+                });
+              } else {
+                url = (0, _core.removeParamFromQS)(o[v].search, url);
+              }
             }
           }
         });
+        // }
         url = (0, _core.updateOrCreateParamFromQS)(url, 'offset', 0);
         this.ajaxExec(url);
       }
