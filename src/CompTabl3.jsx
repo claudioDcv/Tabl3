@@ -205,15 +205,35 @@ class Tabl3 extends Component {
     if (this.state.inputSearch && this.state.paginator.actual) {
       let url = this.state.paginator.actual
       const o = this.state.inputSearch
-      Object.keys(o).forEach(v => {
-        if (Object.prototype.hasOwnProperty.call(o, v)) {
-          if (o[v].value) {
-            url = updateOrCreateParamFromQS(url, o[v].search, o[v].value)
-          } else {
-            url = removeParamFromQS(o[v].search, url)
+        Object.keys(o).forEach(v => {
+          if (Object.prototype.hasOwnProperty.call(o, v)) {
+            if (o[v].value) {
+              console.log(o[v]);
+              if (o[v].search instanceof Array && typeof o[v].value === 'string' ) {
+                o[v].search.forEach(e => {
+                  url = updateOrCreateParamFromQS(url, e, o[v].value)
+                })
+              }
+              if (o[v].search instanceof Array && o[v].value instanceof Array ) {
+                o[v].search.forEach((e, i) => {
+                  url = updateOrCreateParamFromQS(url, e, o[v].value[i])
+                })
+              } else {
+                url = updateOrCreateParamFromQS(url, o[v].search, o[v].value)
+              }
+            } else {
+              console.log(o[v]);
+              if (o[v].search instanceof Array) {
+                o[v].search.forEach(e => {
+                  url = removeParamFromQS(e, url)
+                })
+              } else {
+                url = removeParamFromQS(o[v].search, url)
+              }
+            }
           }
-        }
-      })
+        })
+      // }
       url = updateOrCreateParamFromQS(url, 'offset', 0)
       this.ajaxExec(url)
     }
