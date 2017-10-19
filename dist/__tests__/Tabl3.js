@@ -138,6 +138,20 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
           hidden: true
         },
         columns: [{
+          title: 'id',
+          name: 'id',
+          ordering: false,
+          textEmpty: 'Sin Fecha',
+          cssTH: { minWidth: '150px' },
+          component: function component(i) {
+            return '1';
+          },
+          input: ['id', 'id'],
+          // =2017-10-06T23%3A59%3A59&=2017-10-06T00%3A00%3A00
+          componentInput: function componentInput(handlerChangeInput) {
+            return '1';
+          }
+        }, {
           title: 'Nombre',
           name: 'name',
           textEmpty: 'Sin deatlle',
