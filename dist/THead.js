@@ -44,13 +44,20 @@ var Thead = function (_Component) {
   _createClass(Thead, [{
     key: 'TH',
     value: function TH(e, key) {
+      // Future: deprecar uso del e.cssTH
+      var style = function style(cssTH, th) {
+        if (th) {
+          return th.style;
+        }
+        return cssTH;
+      };
       return _react2.default.createElement(
         'th',
         {
           key: (0, _core.makeKey)(key),
           rowSpan: e.rowSpan || 1,
           className: e.className,
-          style: e.cssTH
+          style: style(e.cssTH, e.th)
         },
         _react2.default.createElement(_HeaderBtn2.default, {
           element: e,

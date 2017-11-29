@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.makePaginator = exports.dotNotationToObject = exports.extractParamFromQSInt = exports.extractParamFromQS = exports.removeParamFromQS = exports.updateOrCreateParamFromQS = exports.makeKey = undefined;
+exports.makePaginator = exports.extractParamFromQSInt = exports.extractParamFromQS = exports.removeParamFromQS = exports.updateOrCreateParamFromQS = exports.makeKey = exports.dotNotationToObject = undefined;
 
 var _updateOrCreateParamFromQS = require('./updateOrCreateParamFromQS');
 
@@ -25,18 +25,24 @@ var _const = require('./const');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var makeKey = exports.makeKey = function makeKey(key) {
-  return key;
-};
-var updateOrCreateParamFromQS = exports.updateOrCreateParamFromQS = _updateOrCreateParamFromQS2.default;
-var removeParamFromQS = exports.removeParamFromQS = _removeParamFromQS2.default;
-var extractParamFromQS = exports.extractParamFromQS = _extractParamFromQS2.default;
-var extractParamFromQSInt = exports.extractParamFromQSInt = _extractParamFromQSInt2.default;
 var dotNotationToObject = exports.dotNotationToObject = function dotNotationToObject(obj, key) {
   return key.split('.').reduce(function (o, i) {
     return o[i];
   }, obj);
 };
+var makeKey = exports.makeKey = function makeKey(key, props) {
+  if (props) {
+    if (props.element && props.key) {
+      return dotNotationToObject(props.element, props.key);
+    }
+  }
+  return key;
+};
+
+var updateOrCreateParamFromQS = exports.updateOrCreateParamFromQS = _updateOrCreateParamFromQS2.default;
+var removeParamFromQS = exports.removeParamFromQS = _removeParamFromQS2.default;
+var extractParamFromQS = exports.extractParamFromQS = _extractParamFromQS2.default;
+var extractParamFromQSInt = exports.extractParamFromQSInt = _extractParamFromQSInt2.default;
 
 var makePaginator = exports.makePaginator = function makePaginator(data, opt, redefineParamsConection) {
 

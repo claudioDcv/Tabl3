@@ -12,7 +12,10 @@ class TBody extends Component {
       <tbody>
         {this.props.tableState.dataset.results.map((e, key) => {
           const comp = (<TR
-            key={makeKey(key)}
+            key={makeKey(key, {
+              key: this.props.tableState.config.table.key,
+              element: e,
+            })}
             element={e}
             tableState={this.props.tableState}
             updateState={this.props.updateState}

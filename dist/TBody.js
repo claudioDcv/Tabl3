@@ -50,7 +50,10 @@ var TBody = function (_Component) {
         null,
         this.props.tableState.dataset.results.map(function (e, key) {
           var comp = _react2.default.createElement(_TR2.default, {
-            key: (0, _core.makeKey)(key),
+            key: (0, _core.makeKey)(key, {
+              key: _this2.props.tableState.config.table.key,
+              element: e
+            }),
             element: e,
             tableState: _this2.props.tableState,
             updateState: _this2.props.updateState
