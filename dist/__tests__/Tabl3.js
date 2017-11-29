@@ -109,6 +109,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
               return function (e) {};
             }
           },
+          key: 'id',
           thead: {
             className: '',
             actions: {
