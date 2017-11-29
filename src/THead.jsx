@@ -6,12 +6,19 @@ import HeaderBtn from './HeaderBtn'
 
 class Thead extends Component {
   TH(e, key) {
+    // Future: deprecar uso del e.cssTH
+    const style = (cssTH, th) => {
+      if (th) {
+        return th.style
+      }
+      return cssTH;
+    }
     return (
       <th
         key={makeKey(key)}
         rowSpan={e.rowSpan || 1}
         className={e.className}
-        style={e.cssTH}
+        style={style(e.cssTH, e.th)}
       >
         <HeaderBtn
           element={e}

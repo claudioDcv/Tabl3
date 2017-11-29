@@ -149,6 +149,23 @@ render() {
 
 ## Parametros de la tabla
 
+```
+table: {
+  head: {
+    actions: {
+      title: 'titulo <th> acciones',
+      className: '',
+      style: {},
+    }
+  }
+},
+columns: [{
+  th: {
+    style: {},
+  }
+}]
+```
+
 ### El primer indice de parametros del objeto contiene las siguiente propiedades
 
 - ajax `{object}`: objecto donde se declara el servicio a consumir `API`

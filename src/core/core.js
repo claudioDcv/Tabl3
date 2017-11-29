@@ -5,12 +5,20 @@ import extractParamInt from './extractParamFromQSInt'
 
 import { API } from './const'
 
-export const makeKey = key => key
+export const dotNotationToObject = (obj, key) => key.split('.').reduce((o, i) => o[i], obj)
+export const makeKey = (key, props) => {
+  if (props) {
+    if (props.element && props.key) {
+      return dotNotationToObject(props.element, props.key);
+    }
+  }
+  return key;
+}
+
 export const updateOrCreateParamFromQS = updateOrCreateParam
 export const removeParamFromQS = removeParam
 export const extractParamFromQS = extractParam
 export const extractParamFromQSInt = extractParamInt
-export const dotNotationToObject = (obj, key) => key.split('.').reduce((o, i) => o[i], obj)
 
 export const makePaginator = (data, opt, redefineParamsConection) => {
 
