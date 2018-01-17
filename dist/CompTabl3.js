@@ -217,7 +217,7 @@ var Tabl3 = function (_Component) {
     value: function ajaxConector(configArg, cb) {
       var _this4 = this;
 
-      var s = this.state;
+      var c = this.state.config;
 
       var prs = this.props;
       var config = configArg;
@@ -247,12 +247,12 @@ var Tabl3 = function (_Component) {
         }
       };
       config.headers = _extends({}, config.headers, headers);
-      if (s.config.connector && s.config.connector instanceof Function) {
+      if (c.connector && c.connector instanceof Function) {
         this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData);
-      } else if (s.config.conector && s.config.connector instanceof Function) {
+      } else if (c.conector && c.conector instanceof Function) {
         // remove in future release
         console.warn('conector is deprecated, change name to [connector]');
-        this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData);
+        c.conector(config, cb, ecb, nonErrorAjax, cbAfterData);
       }
     }
   }, {
@@ -367,7 +367,7 @@ var Tabl3 = function (_Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: st.state.table.responsive ? 'table-responsive' : '' },
+          { className: st.config.table.responsive ? 'table-responsive' : '' },
           _react2.default.createElement(
             'table',
             { className: 'table-2-new ' + st.config.table.className },

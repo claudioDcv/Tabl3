@@ -159,7 +159,7 @@ class Tabl3 extends Component {
   }
   ajaxConector(configArg, cb) {
 
-    const s = this.state;
+    const c = this.state.config;
 
     const prs = this.props
     const config = configArg
@@ -192,11 +192,11 @@ class Tabl3 extends Component {
       ...config.headers,
       ...headers,
     }
-    if (s.config.connector && s.config.connector instanceof Function ) {
+    if (c.connector && c.connector instanceof Function ) {
       this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData)
-    } else if (s.config.conector && s.config.connector instanceof Function) { // remove in future release
+    } else if (c.conector && c.conector instanceof Function) { // remove in future release
       console.warn('conector is deprecated, change name to [connector]')
-      this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData)
+      c.conector(config, cb, ecb, nonErrorAjax, cbAfterData)
     }
 
   }
@@ -287,7 +287,7 @@ class Tabl3 extends Component {
     }
     return (
       <div>
-        <div className={st.state.table.responsive ? 'table-responsive' : ''}>
+        <div className={st.config.table.responsive ? 'table-responsive' : ''}>
           <table className={`table-2-new ${st.config.table.className}`}>
             <THead
               initialState={this.initialState}
