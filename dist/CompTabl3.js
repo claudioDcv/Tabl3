@@ -364,7 +364,7 @@ var Tabl3 = function (_Component) {
       }
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'tabl3' },
         _react2.default.createElement(
           'div',
           { className: st.config.table.responsive ? 'table-responsive' : '' },

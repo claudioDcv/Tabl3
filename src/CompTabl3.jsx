@@ -286,7 +286,7 @@ class Tabl3 extends Component {
       return <span />
     }
     return (
-      <div>
+      <div className="tabl3">
         <div className={st.config.table.responsive ? 'table-responsive' : ''}>
           <table className={`table-2-new ${st.config.table.className}`}>
             <THead
