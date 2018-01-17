@@ -10,7 +10,7 @@ var _index = require('../index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _ajax = require('../conector/ajax');
+var _ajax = require('../connector/ajax');
 
 var _ajax2 = _interopRequireDefault(_ajax);
 
@@ -25,7 +25,7 @@ var _extractParamFromQS2 = _interopRequireDefault(_extractParamFromQS);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* eslint-disable */
-jest.mock('../conector/ajax');
+jest.mock('../connector/ajax');
 
 describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
   test('remove limit', function () {

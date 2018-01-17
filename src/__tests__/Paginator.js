@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import Paginator from '../Paginator';
 
-jest.mock('../conector/ajax');
+jest.mock('../connector/ajax');
 
  const props = {
    updateState: e => {},

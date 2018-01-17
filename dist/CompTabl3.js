@@ -217,6 +217,8 @@ var Tabl3 = function (_Component) {
     value: function ajaxConector(configArg, cb) {
       var _this4 = this;
 
+      var c = this.state.config;
+
       var prs = this.props;
       var config = configArg;
       var confAjax = prs.config.ajax;
@@ -245,7 +247,13 @@ var Tabl3 = function (_Component) {
         }
       };
       config.headers = _extends({}, config.headers, headers);
-      this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData);
+      if (c.connector && c.connector instanceof Function) {
+        this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData);
+      } else if (c.conector && c.conector instanceof Function) {
+        // remove in future release
+        console.warn('conector is deprecated, change name to [connector]');
+        c.conector(config, cb, ecb, nonErrorAjax, cbAfterData);
+      }
     }
   }, {
     key: 'ajaxExec',
@@ -358,16 +366,24 @@ var Tabl3 = function (_Component) {
         'div',
         null,
         _react2.default.createElement(
-          'table',
-          { className: 'table-2-new ' + st.config.table.className },
-          _react2.default.createElement(_THead2.default, {
-            initialState: this.initialState,
-            tableState: st,
-            updateState: this.updateState,
-            handlerInputSearch: this.handlerInputSearch,
-            resetToInitialState: this.resetToInitialState
-          }),
-          _react2.default.createElement(_TBody2.default, { tableState: st, updateState: this.updateState }),
+          'div',
+          { className: st.config.table.responsive ? 'table-responsive' : '' },
+          _react2.default.createElement(
+            'table',
+            { className: 'table-2-new ' + st.config.table.className },
+            _react2.default.createElement(_THead2.default, {
+              initialState: this.initialState,
+              tableState: st,
+              updateState: this.updateState,
+              handlerInputSearch: this.handlerInputSearch,
+              resetToInitialState: this.resetToInitialState
+            }),
+            _react2.default.createElement(_TBody2.default, { tableState: st, updateState: this.updateState })
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'table-paginator' },
           (st.config.paginator || {}).hidden ? undefined : _react2.default.createElement(_TFooter2.default, { tableState: st, updateState: this.updateState })
         ),
         this.state.config.debug ? _react2.default.createElement(

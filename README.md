@@ -750,7 +750,7 @@ import React, { Component } from 'react';
 import Tabl3 from 'tabl3';
 import moment from 'moment';
 import { getUserData } from '../../services/jwtSession';
-import conector from '../../conector/ajax';
+import conector from connector;
 import { atUrl } from '../../services/at_api';
 import { _ } from '../../services/CONST';
 

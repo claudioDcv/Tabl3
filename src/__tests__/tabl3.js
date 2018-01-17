@@ -3,12 +3,12 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import Tabl3 from '../index';
-import conector from '../conector/ajax';
+import conector from '../connector/ajax';
 import removeParamFromQS from '../core/removeParamFromQS';
 import extractParamFromQS from '../core/extractParamFromQS';
 
 
-jest.mock('../conector/ajax');
+jest.mock('../connector/ajax');
 
 describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
   test('remove limit', () => {

@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import HeaderBtn from '../HeaderBtn';
 
-jest.mock('../conector/ajax');
+jest.mock('../connector/ajax');
 
  const props = {
    handlerInputSearch: e => {},

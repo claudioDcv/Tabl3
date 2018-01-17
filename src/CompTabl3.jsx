@@ -158,6 +158,9 @@ class Tabl3 extends Component {
     this.ajaxConector(this.state.config.ajax, cbResponse)
   }
   ajaxConector(configArg, cb) {
+
+    const c = this.state.config;
+
     const prs = this.props
     const config = configArg
     const confAjax = prs.config.ajax
@@ -189,7 +192,13 @@ class Tabl3 extends Component {
       ...config.headers,
       ...headers,
     }
-    this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData)
+    if (c.connector && c.connector instanceof Function ) {
+      this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData)
+    } else if (c.conector && c.conector instanceof Function) { // remove in future release
+      console.warn('conector is deprecated, change name to [connector]')
+      c.conector(config, cb, ecb, nonErrorAjax, cbAfterData)
+    }
+
   }
   ajaxExec(url) {
     const method = this.state.initiaAjax.method
@@ -278,21 +287,25 @@ class Tabl3 extends Component {
     }
     return (
       <div>
-        <table className={`table-2-new ${st.config.table.className}`}>
-          <THead
-            initialState={this.initialState}
-            tableState={st}
-            updateState={this.updateState}
-            handlerInputSearch={this.handlerInputSearch}
-            resetToInitialState={this.resetToInitialState}
-          />
-          <TBody tableState={st} updateState={this.updateState} />
+        <div className={st.config.table.responsive ? 'table-responsive' : ''}>
+          <table className={`table-2-new ${st.config.table.className}`}>
+            <THead
+              initialState={this.initialState}
+              tableState={st}
+              updateState={this.updateState}
+              handlerInputSearch={this.handlerInputSearch}
+              resetToInitialState={this.resetToInitialState}
+            />
+            <TBody tableState={st} updateState={this.updateState} />
+          </table>
+        </div>
+        <div className="table-paginator">
           {(st.config.paginator || {}).hidden ?
             undefined
             :
             (<TFooter tableState={st} updateState={this.updateState} />)
           }
-        </table>
+        </div>
         {this.state.config.debug
           ? <div>
               {debug.inputSearch ? Tabl3.formatJSON(st, 'inputSearch') : undefined}

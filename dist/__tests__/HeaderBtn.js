@@ -12,7 +12,7 @@ var _HeaderBtn2 = _interopRequireDefault(_HeaderBtn);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-jest.mock('../conector/ajax');
+jest.mock('../connector/ajax');
 
 var props = {
   handlerInputSearch: function handlerInputSearch(e) {},

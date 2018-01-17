@@ -12,7 +12,7 @@ var _TFooter2 = _interopRequireDefault(_TFooter);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-jest.mock('../conector/ajax');
+jest.mock('../connector/ajax');
 
 var props = {
   updateState: function updateState(e) {},

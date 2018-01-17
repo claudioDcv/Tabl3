@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import TR from '../TR';
 
-jest.mock('../conector/ajax');
+jest.mock('../connector/ajax');
 
  const props = {
    updateState: e => {},

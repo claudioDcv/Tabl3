@@ -53,13 +53,13 @@ var TFooter = function (_Component) {
         return paginator;
       }
       return _react2.default.createElement(
-        'tfoot',
+        'div',
         { className: state.paginator.pages > 1 ? 'active-paginator' : 'inactive-paginator' },
         _react2.default.createElement(
-          'tr',
+          'div',
           null,
           _react2.default.createElement(
-            'td',
+            'div',
             { colSpan: state.columns.length + (state.config.table.thead.actions ? 1 : 0) },
             state.paginator.pages > 1 ? _react2.default.createElement(_Paginator2.default, {
               tableState: this.props.tableState,

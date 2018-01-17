@@ -19,18 +19,18 @@ class TFooter extends Component {
       return paginator
     }
     return (
-      <tfoot className={state.paginator.pages > 1 ? 'active-paginator' : 'inactive-paginator'}>
-        <tr>
-          <td colSpan={state.columns.length + (state.config.table.thead.actions ? 1 : 0)}>
+      <div className={state.paginator.pages > 1 ? 'active-paginator' : 'inactive-paginator'}>
+        <div>
+          <div colSpan={state.columns.length + (state.config.table.thead.actions ? 1 : 0)}>
             {state.paginator.pages > 1
               ? <Paginator
                   tableState={this.props.tableState}
                   updateState={this.props.updateState}
                 />
               : undefined}
-          </td>
-        </tr>
-      </tfoot>
+          </div>
+        </div>
+      </div>
     )
   }
 }
