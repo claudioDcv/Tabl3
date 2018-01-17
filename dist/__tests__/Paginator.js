@@ -6,9 +6,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _enzyme = require('enzyme');
 
-var _TR = require('../TR');
+var _Paginator = require('../Paginator');
 
-var _TR2 = _interopRequireDefault(_TR);
+var _Paginator2 = _interopRequireDefault(_Paginator);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,19 +24,16 @@ var props = {
     },
     columns: [{
       id: 1
-    }]
+    }],
+    paginator: {
+      current: 2
+    }
   }
 };
-describe("TR ", function () {
-  test('create TR', function () {
-    (0, _enzyme.mount)(_react2.default.createElement(
-      'table',
-      null,
-      _react2.default.createElement(
-        'tbody',
-        null,
-        _react2.default.createElement(_TR2.default, props)
-      )
-    ));
+describe("Paginator ", function () {
+  test('create Paginator', function () {
+    var component = (0, _enzyme.mount)(_react2.default.createElement(_Paginator2.default, props));
+    var tableInstance = component.instance();
+    tableInstance.update('k', 'v');
   });
 });

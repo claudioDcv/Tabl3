@@ -18,9 +18,14 @@ var _removeParamFromQS = require('../core/removeParamFromQS');
 
 var _removeParamFromQS2 = _interopRequireDefault(_removeParamFromQS);
 
+var _extractParamFromQS = require('../core/extractParamFromQS');
+
+var _extractParamFromQS2 = _interopRequireDefault(_extractParamFromQS);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-jest.mock('../conector/ajax');
+/* eslint-disable */
+jest.mock('../connector/ajax');
 
 describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
   test('remove limit', function () {
@@ -28,6 +33,9 @@ describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&orde
   });
   test('remove limit false', function () {
     expect((0, _removeParamFromQS2.default)('name__', 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a')).toEqual('http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a');
+  });
+  test('extractParamFromQS', function () {
+    expect((0, _extractParamFromQS2.default)('name')).toEqual('');
   });
 });
 
@@ -75,14 +83,22 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
         table: {
           theadExtra: function theadExtra(paginator) {
             return _react2.default.createElement(
-              'button',
-              {
-                className: 'btn btn-default hidden',
-                onClick: function onClick() {
-                  console.log(paginator);
-                }
-              },
-              'c'
+              'tr',
+              null,
+              _react2.default.createElement(
+                'th',
+                null,
+                _react2.default.createElement(
+                  'button',
+                  {
+                    className: 'btn btn-default hidden',
+                    onClick: function onClick() {
+                      console.log(paginator);
+                    }
+                  },
+                  'c'
+                )
+              )
             );
           },
           className: 'table table-hover table-condensed',
@@ -122,6 +138,20 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
           hidden: true
         },
         columns: [{
+          title: 'id',
+          name: 'id',
+          ordering: false,
+          textEmpty: 'Sin Fecha',
+          cssTH: { minWidth: '150px' },
+          component: function component(i) {
+            return '1';
+          },
+          input: ['id', 'id'],
+          // =2017-10-06T23%3A59%3A59&=2017-10-06T00%3A00%3A00
+          componentInput: function componentInput(handlerChangeInput) {
+            return '1';
+          }
+        }, {
           title: 'Nombre',
           name: 'name',
           textEmpty: 'Sin deatlle',
@@ -543,7 +573,6 @@ describe("Tabl3 Generate Error", function () {
 });
 
 describe("Tabl3 onAjaxError", function () {
-
   var inputTest = function inputTest(handlerChangeInput, instance, value) {
     var hdc = handlerChangeInput;
     return _react2.default.createElement('input', { value: value, onChange: hdc });
@@ -606,5 +635,118 @@ describe("Tabl3 onAjaxError", function () {
       } }));
     var instanceTableError = tableError.instance();
     expect(instanceTableError.initError).toEqual(false);
+  });
+});
+
+describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
+  test('create Table without Paginator', function () {
+    component2 = (0, _enzyme.mount)(_react2.default.createElement(_index2.default, {
+      config: {
+        ajax: {
+          url: 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a',
+          method: 'GET',
+          liveHeaders: function liveHeaders() {
+            return {
+              Authorization: 'JWT 298KJHkj1KJH'
+            };
+          }
+        },
+        conector: _ajax2.default,
+        debug: {
+          inputSearch: true,
+          paginator: true,
+          initiaAjax: true,
+          dataset: true
+        },
+        onBeforeSend: function onBeforeSend(e) {
+          return function (e) {};
+        },
+        onAfterSend: function onAfterSend(e) {
+          return function (e) {};
+        },
+        onAfterRender: function onAfterRender(e) {},
+        errors: {
+          onAjaxError: function onAjaxError(e) {
+            return function (e) {/* console.log(arguments);*/};
+          }
+        },
+        paramsConection: {
+          offset: 'offset',
+          limit: 'limit',
+          count: 'count',
+          ordering: 'ordering'
+        },
+        table: {
+          theadExtra: function theadExtra(paginator) {
+            return _react2.default.createElement(
+              'tr',
+              null,
+              _react2.default.createElement(
+                'th',
+                null,
+                _react2.default.createElement(
+                  'button',
+                  {
+                    className: 'btn btn-default hidden',
+                    onClick: function onClick() {
+                      console.log(paginator);
+                    }
+                  },
+                  'c'
+                )
+              )
+            );
+          },
+          className: 'table table-hover table-condensed',
+          resetButton: {
+            className: 'btn btn-sm btn-warning',
+            title: 'Restablecer',
+            onReset: function onReset(e) {
+              return function (e) {};
+            }
+          },
+          thead: {
+            className: '',
+            actions: {
+              title: 'Acciones',
+              className: 'claudio',
+              isEmpty: 'blah',
+              style: {
+                width: '130px',
+                minWidth: '130px'
+              }
+            }
+          }
+        },
+        columnsAction: {
+          style: { color: 'red' },
+          component: function component() {
+            return 2;
+          }
+        },
+        columns: [{
+          title: 'Nombre',
+          name: 'name',
+          textEmpty: 'Sin deatlle',
+          inputPlaceholder: 'Buscar',
+          input: 'name__icontains'
+        }, {
+          title: 'Nombre',
+          name: 'noexist',
+          textEmpty: 'Sin deatlle',
+          inputPlaceholder: 'Buscar',
+          input: 'name__icontains'
+        }]
+      } }));
+    table2new2 = component2;
+    expect(table2new2.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
+    var table2new2Instance = component2.instance();
+    table2new2Instance.updateState('PAGINATOR_GOTO_PAGE', 1);
+    table2new2Instance.updateState('PAGINATOR_PREV_PAGE');
+    table2new2Instance.updateState('PAGINATOR_NEXT_PAGE');
+    table2new2Instance.updateState('RESULTS_ORDERING', 'name');
+    table2new2Instance.resetToInitialState();
+    //table2new2Instance.compareOrderingParam('-name')
+    //table2new2Instance.compareOrderingParam('name')
   });
 });

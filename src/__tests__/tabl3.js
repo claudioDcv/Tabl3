@@ -1,11 +1,14 @@
+/* eslint-disable */
 import React from 'react';
 import { mount } from 'enzyme';
 
 import Tabl3 from '../index';
-import conector from '../conector/ajax';
+import conector from '../connector/ajax';
 import removeParamFromQS from '../core/removeParamFromQS';
+import extractParamFromQS from '../core/extractParamFromQS';
 
-jest.mock('../conector/ajax');
+
+jest.mock('../connector/ajax');
 
 describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
   test('remove limit', () => {
@@ -13,6 +16,9 @@ describe("removeParamFromQS [http://127.0.0.1:8000/colors/?limit=4&offset=4&orde
   });
   test('remove limit false', () => {
     expect(removeParamFromQS('name__', 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a')).toEqual('http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a');
+  });
+  test('extractParamFromQS', () => {
+    expect(extractParamFromQS('name')).toEqual('');
   });
 });
 
@@ -53,13 +59,13 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
             ordering: 'ordering',
           },
           table: {
-            theadExtra: paginator => (<button
+            theadExtra: paginator => (<tr><th><button
               className="btn btn-default hidden"
               onClick={
                 () => {
                   console.log(paginator);
                 }}
-            >c</button>),
+            >c</button></th></tr>),
             className: 'table table-hover table-condensed',
             resetButton: {
               className: 'btn btn-sm btn-warning',
@@ -93,6 +99,19 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
             hidden: true,
           },
           columns: [
+            {
+                  title: 'id',
+                  name: 'id',
+                  ordering: false,
+                  textEmpty: 'Sin Fecha',
+                  cssTH: { minWidth: '150px' },
+                  component: i => '1',
+                  input: ['id', 'id'],
+                  // =2017-10-06T23%3A59%3A59&=2017-10-06T00%3A00%3A00
+                  componentInput: handlerChangeInput => {
+                    return '1'
+                  },
+            },
             {
               title: 'Nombre',
               name: 'name',
@@ -489,8 +508,6 @@ describe("Tabl3 Generate Error", function () {
 
 
 describe("Tabl3 onAjaxError", function () {
-
-
   const inputTest = (handlerChangeInput, instance, value) => {
     const hdc = handlerChangeInput;
     return (
@@ -550,4 +567,103 @@ describe("Tabl3 onAjaxError", function () {
       const instanceTableError = tableError.instance();
     expect(instanceTableError.initError).toEqual(false);
   });
+});
+
+
+
+describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a]", function () {
+  test('create Table without Paginator', () => {
+    component2 = mount(
+      <Tabl3
+        config={{
+          ajax: {
+            url: 'http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-name&name__icontains=a',
+            method: 'GET',
+            liveHeaders: () => {
+              return {
+                Authorization: 'JWT 298KJHkj1KJH',
+              };
+            },
+          },
+          conector: conector,
+          debug: {
+            inputSearch: true,
+            paginator: true,
+            initiaAjax: true,
+            dataset: true,
+          },
+          onBeforeSend: e => ((e) => { }),
+          onAfterSend: e => ((e) => { }),
+          onAfterRender: e => { },
+          errors: {
+            onAjaxError: e => ((e) => { /* console.log(arguments);*/ }),
+          },
+          paramsConection: {
+            offset: 'offset',
+            limit: 'limit',
+            count: 'count',
+            ordering: 'ordering',
+          },
+          table: {
+            theadExtra: paginator => (<tr><th><button
+              className="btn btn-default hidden"
+              onClick={
+                () => {
+                  console.log(paginator);
+                }}
+            >c</button></th></tr>),
+            className: 'table table-hover table-condensed',
+            resetButton: {
+              className: 'btn btn-sm btn-warning',
+              title: 'Restablecer',
+              onReset: e => ((e) => { }),
+            },
+            thead: {
+              className: '',
+              actions: {
+                title: 'Acciones',
+                className: 'claudio',
+                isEmpty: 'blah',
+                style: {
+                  width: '130px',
+                  minWidth: '130px',
+                },
+              },
+            },
+          },
+          columnsAction: {
+            style: { color: 'red' },
+            component: () => 2,
+          },
+          columns: [
+            {
+              title: 'Nombre',
+              name: 'name',
+              textEmpty: 'Sin deatlle',
+              inputPlaceholder: 'Buscar',
+              input: 'name__icontains',
+            },
+            {
+              title: 'Nombre',
+              name: 'noexist',
+              textEmpty: 'Sin deatlle',
+              inputPlaceholder: 'Buscar',
+              input: 'name__icontains',
+            },
+            /* end fake columns */
+          ],
+        }}/>
+    );
+    table2new2 = component2;
+    expect(table2new2.find('table').props().className).toEqual('table-2-new table table-hover table-condensed');
+    const table2new2Instance = component2.instance();
+    table2new2Instance.updateState('PAGINATOR_GOTO_PAGE', 1)
+    table2new2Instance.updateState('PAGINATOR_PREV_PAGE')
+    table2new2Instance.updateState('PAGINATOR_NEXT_PAGE')
+    table2new2Instance.updateState('RESULTS_ORDERING', 'name')
+    table2new2Instance.resetToInitialState()
+    //table2new2Instance.compareOrderingParam('-name')
+    //table2new2Instance.compareOrderingParam('name')
+  });
+
 });

@@ -6,16 +6,22 @@ var _react2 = _interopRequireDefault(_react);
 
 var _enzyme = require('enzyme');
 
-var _TR = require('../TR');
+var _HeaderBtn = require('../HeaderBtn');
 
-var _TR2 = _interopRequireDefault(_TR);
+var _HeaderBtn2 = _interopRequireDefault(_HeaderBtn);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 jest.mock('../connector/ajax');
 
 var props = {
+  handlerInputSearch: function handlerInputSearch(e) {},
   updateState: function updateState(e) {},
+  element: {
+    name: 'name',
+    ordering: 'name',
+    orderingBy: 'name'
+  },
   tableState: {
     config: {
       columnsAction: function columnsAction(e) {
@@ -24,19 +30,14 @@ var props = {
     },
     columns: [{
       id: 1
-    }]
+    }],
+    paginator: {
+      orderingBy: 'name'
+    }
   }
 };
-describe("TR ", function () {
-  test('create TR', function () {
-    (0, _enzyme.mount)(_react2.default.createElement(
-      'table',
-      null,
-      _react2.default.createElement(
-        'tbody',
-        null,
-        _react2.default.createElement(_TR2.default, props)
-      )
-    ));
+describe("HeaderBtn ", function () {
+  test('create HeaderBtn', function () {
+    (0, _enzyme.mount)(_react2.default.createElement(_HeaderBtn2.default, props));
   });
 });

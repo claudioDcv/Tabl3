@@ -40,8 +40,8 @@ var TFooter = function (_Component) {
     value: function render() {
       var state = this.props.tableState;
       var paginator = _react2.default.createElement('ul', {
-        style: this.props.tableState.config.paginator.style || {},
-        className: 'table-2-new-paginator-null ' + (this.props.tableState.config.paginator.className || '')
+        style: (this.props.tableState.config.paginator || {}).style || {},
+        className: 'table-2-new-paginator-null ' + ((this.props.tableState.config.paginator || {}).className || 'pagination pagination-sm')
       });
       if (this.props.extract) {
         if (state.paginator.pages > 1) {

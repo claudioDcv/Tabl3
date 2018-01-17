@@ -1,37 +1,30 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import TFooter from '../TFooter';
+import Paginator from '../Paginator';
 
 jest.mock('../connector/ajax');
 
  const props = {
    updateState: e => {},
-   extract: true,
    tableState: {
      config: {
-       table: {
-         thead: {
-         },
-       },
        columnsAction: e => { console.log(e);},
-       paginator: {
-         style: {},
-       },
      },
      columns: [{
        id: 1,
      }],
      paginator: {
-       pages: 0,
+       current: 2,
      },
    },
-
  }
-describe("TFooter ", function () {
-  test('create TFooter', () => {
-    mount(
-      <TFooter {...props} />
+describe("Paginator ", function () {
+  test('create Paginator', () => {
+  const component =  mount(
+      <Paginator {...props} />
    )
+   const tableInstance = component.instance();
+   tableInstance.update('k', 'v')
   });
 });

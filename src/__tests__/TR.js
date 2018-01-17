@@ -2,10 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import TR from '../TR';
-import conector from '../conector/ajax';
-import removeParamFromQS from '../core/removeParamFromQS';
 
-jest.mock('../conector/ajax');
+jest.mock('../connector/ajax');
 
  const props = {
    updateState: e => {},

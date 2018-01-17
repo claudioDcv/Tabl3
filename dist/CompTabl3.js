@@ -63,7 +63,7 @@ var Tabl3 = function (_Component) {
 
     var prs = props;
     _this.name = 'Tabl3';
-    _this.version = 'v1.1.12';
+    _this.version = 'v1.1.28';
     _this.initError = false;
     _this.state = {
       initiaAjax: _extends({}, prs.config.ajax),
@@ -270,12 +270,32 @@ var Tabl3 = function (_Component) {
         Object.keys(o).forEach(function (v) {
           if (Object.prototype.hasOwnProperty.call(o, v)) {
             if (o[v].value) {
-              url = (0, _core.updateOrCreateParamFromQS)(url, o[v].search, o[v].value);
+              console.log(o[v]);
+              if (o[v].search instanceof Array && typeof o[v].value === 'string') {
+                o[v].search.forEach(function (e) {
+                  url = (0, _core.updateOrCreateParamFromQS)(url, e, o[v].value);
+                });
+              }
+              if (o[v].search instanceof Array && o[v].value instanceof Array) {
+                o[v].search.forEach(function (e, i) {
+                  url = (0, _core.updateOrCreateParamFromQS)(url, e, o[v].value[i]);
+                });
+              } else {
+                url = (0, _core.updateOrCreateParamFromQS)(url, o[v].search, o[v].value);
+              }
             } else {
-              url = (0, _core.removeParamFromQS)(o[v].search, url);
+              console.log(o[v]);
+              if (o[v].search instanceof Array) {
+                o[v].search.forEach(function (e) {
+                  url = (0, _core.removeParamFromQS)(e, url);
+                });
+              } else {
+                url = (0, _core.removeParamFromQS)(o[v].search, url);
+              }
             }
           }
         });
+        // }
         url = (0, _core.updateOrCreateParamFromQS)(url, 'offset', 0);
         this.ajaxExec(url);
       }
@@ -348,7 +368,7 @@ var Tabl3 = function (_Component) {
             resetToInitialState: this.resetToInitialState
           }),
           _react2.default.createElement(_TBody2.default, { tableState: st, updateState: this.updateState }),
-          st.config.paginator.hidden ? undefined : _react2.default.createElement(_TFooter2.default, { tableState: st, updateState: this.updateState })
+          (st.config.paginator || {}).hidden ? undefined : _react2.default.createElement(_TFooter2.default, { tableState: st, updateState: this.updateState })
         ),
         this.state.config.debug ? _react2.default.createElement(
           'div',

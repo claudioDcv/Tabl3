@@ -7,7 +7,12 @@ import HeaderBtn from './HeaderBtn'
 class Thead extends Component {
   TH(e, key) {
     return (
-      <th key={makeKey(key)} className={e.className} style={e.cssTH}>
+      <th
+        key={makeKey(key)}
+        rowSpan={e.rowSpan || 1}
+        className={e.className}
+        style={e.cssTH}
+      >
         <HeaderBtn
           element={e}
           tableState={this.props.tableState}
@@ -32,21 +37,15 @@ class Thead extends Component {
     const config = this.props.tableState.config
     const state = this.props.tableState
     return (
-      <thead className={thead.className}>
-        {config.table.resetButton || config.table.extraThead ? <tr>
-          <td colSpan={state.columns.length + (state.config.table.thead.actions ? 1 : 0)}>
-            {config.table.resetButton
-              ? <button
-                  onClick={this.props.resetToInitialState}
-                  className={`table2-btn-reset ${config.table.resetButton.className}`}
-                >
-                  {config.table.resetButton.title}
-                </button>
-              : undefined}
-            {typeof config.table.theadExtra === 'function' ? config.table.theadExtra(
-              this.props.tableState.paginator) : undefined}
-          </td>
-        </tr> : undefined}
+      <thead className={thead.className} >
+        {typeof config.table.theadExtra === 'function' ? config.table.theadExtra(
+          this.props.tableState.paginator, config.table.resetButton) : config.table.resetButton ? (
+          <tr><td colSpan={state.columns.length + (state.config.table.thead.actions ? 1 : 0)} >
+            <button
+              onClick={this.props.resetToInitialState}
+              className={`table2-btn-reset ${config.table.resetButton.className}`}
+            >{config.table.resetButton.title}</button></td></tr>
+          ) : undefined}
         <tr>
           {this.props.tableState.columns.map((e, key) => this.TH(e, key))}
           {thead.actions ? this.actions() : undefined}
