@@ -10,7 +10,7 @@ var _index = require('../index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _ajax = require('../conector/ajax');
+var _ajax = require('../connector/ajax');
 
 var _ajax2 = _interopRequireDefault(_ajax);
 
