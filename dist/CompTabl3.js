@@ -142,9 +142,51 @@ var Tabl3 = function (_Component) {
       }
     }
   }, {
+    key: 'getResource',
+    value: function getResource(cb, resetInputSearch) {
+      var _this2 = this;
+
+      var oldUrl = this.state.initiaAjax.url;
+      if (typeof cb === 'function') {
+        var _cb = cb(this.state.paginator.actual),
+            params = _cb.params,
+            url = _cb.url;
+
+        oldUrl = url;
+        if (params) {
+          Object.keys(params).forEach(function (v) {
+            if (Object.prototype.hasOwnProperty.call(params, v) && params[v]) {
+              oldUrl = (0, _core.updateOrCreateParamFromQS)(url, v, params[v]);
+            }
+          });
+        }
+      }
+
+      if (resetInputSearch) {
+        this.setState({ inputSearch: {} });
+      } else {
+        var o = this.state.inputSearch;
+        Object.keys(o).forEach(function (v) {
+          if (Object.prototype.hasOwnProperty.call(o, v) && o[v].value) {
+            oldUrl = (0, _core.updateOrCreateParamFromQS)(oldUrl, o[v].search, o[v].value);
+          }
+        });
+      }
+
+      this.ajaxConector({
+        url: oldUrl,
+        method: this.state.initiaAjax.method
+      }, function (dataset, response, opt) {
+        _this2.setStateService(dataset, response, opt);
+      });
+    }
+
+    // deprecated
+
+  }, {
     key: 'updateQueryStringOut',
     value: function updateQueryStringOut(cb, resetInputSearch) {
-      var _this2 = this;
+      var _this3 = this;
 
       var url = this.state.initiaAjax.url;
       if (typeof cb === 'function') {
@@ -175,7 +217,7 @@ var Tabl3 = function (_Component) {
         url: url,
         method: this.state.initiaAjax.method
       }, function (dataset, response, opt) {
-        _this2.setStateService(dataset, response, opt);
+        _this3.setStateService(dataset, response, opt);
       });
     }
   }, {
@@ -205,17 +247,17 @@ var Tabl3 = function (_Component) {
   }, {
     key: 'ajax',
     value: function ajax() {
-      var _this3 = this;
+      var _this4 = this;
 
       var cbResponse = function cbResponse(dataset, response, opt) {
-        _this3.setStateService(dataset, response, opt);
+        _this4.setStateService(dataset, response, opt);
       };
       this.ajaxConector(this.state.config.ajax, cbResponse);
     }
   }, {
     key: 'ajaxConector',
     value: function ajaxConector(configArg, cb) {
-      var _this4 = this;
+      var _this5 = this;
 
       var c = this.state.config;
 
@@ -228,10 +270,10 @@ var Tabl3 = function (_Component) {
       }
 
       var ecb = function ecb(e) {
-        _this4.setState({ ajaxError: true }, function () {
-          if (_this4.state.config.errors) {
-            if (_this4.state.config.errors.onAjaxError) {
-              _this4.state.config.errors.onAjaxError(e);
+        _this5.setState({ ajaxError: true }, function () {
+          if (_this5.state.config.errors) {
+            if (_this5.state.config.errors.onAjaxError) {
+              _this5.state.config.errors.onAjaxError(e);
             } else {
               console.error(e);
             }
@@ -239,16 +281,16 @@ var Tabl3 = function (_Component) {
         });
       };
       var nonErrorAjax = function nonErrorAjax() {
-        _this4.setState({ ajaxError: false });
+        _this5.setState({ ajaxError: false });
       };
       var cbAfterData = function cbAfterData(response) {
-        if (_this4.state.config.onAfterSend) {
-          _this4.state.config.onAfterSend(response.data);
+        if (_this5.state.config.onAfterSend) {
+          _this5.state.config.onAfterSend(response.data);
         }
       };
       config.headers = _extends({}, config.headers, headers);
       if (c.connector && c.connector instanceof Function) {
-        this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData);
+        this.state.config.connector(config, cb, ecb, nonErrorAjax, cbAfterData);
       } else if (c.conector && c.conector instanceof Function) {
         // remove in future release
         console.warn('conector is deprecated, change name to [connector]');
@@ -258,11 +300,11 @@ var Tabl3 = function (_Component) {
   }, {
     key: 'ajaxExec',
     value: function ajaxExec(url) {
-      var _this5 = this;
+      var _this6 = this;
 
       var method = this.state.initiaAjax.method;
       this.ajaxConector({ method: method, url: url }, function (dataset, response, opt) {
-        _this5.setStateService(dataset, response, opt);
+        _this6.setStateService(dataset, response, opt);
       });
     }
   }, {
@@ -319,25 +361,25 @@ var Tabl3 = function (_Component) {
   }, {
     key: 'initialState',
     value: function initialState() {
-      var _this6 = this;
+      var _this7 = this;
 
       var initiaAjax = this.state.initiaAjax;
       this.setState({ inputSearch: {} });
       this.ajaxConector(initiaAjax, function (dataset, response, opt) {
-        _this6.setStateService(dataset, response, opt);
+        _this7.setStateService(dataset, response, opt);
       });
     }
   }, {
     key: 'ajaxGotoPage',
     value: function ajaxGotoPage(nPage) {
-      var _this7 = this;
+      var _this8 = this;
 
       var configAjax = this.state.config.ajax;
       var url = this.state.paginator.actual;
       url = (0, _core.updateOrCreateParamFromQS)(url, 'offset', this.state.paginator.limit * (nPage - 1));
       configAjax.url = (0, _core.updateOrCreateParamFromQS)(url, 'limit', this.state.paginator.limit);
       this.ajaxConector(configAjax, function (dataset, response, opt) {
-        _this7.setStateService(dataset, response, opt);
+        _this8.setStateService(dataset, response, opt);
       });
     }
   }, {
@@ -378,7 +420,7 @@ var Tabl3 = function (_Component) {
               handlerInputSearch: this.handlerInputSearch,
               resetToInitialState: this.resetToInitialState
             }),
-            _react2.default.createElement(_TBody2.default, { tableState: st, updateState: this.updateState })
+            _react2.default.createElement(_TBody2.default, { tableState: st, updateState: this.updateState, getEmptyMessage: st.config.table.getEmptyMessage })
           )
         ),
         _react2.default.createElement(

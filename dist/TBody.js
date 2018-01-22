@@ -28,6 +28,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var EMPTY_RESULTS = 'No se encontraron resultados';
+var styleEmptyTd = {
+  textAlign: 'center',
+  verticalAlign: 'middle',
+  height: '150px'
+};
+
 var TBody = function (_Component) {
   _inherits(TBody, _Component);
 
@@ -40,24 +47,39 @@ var TBody = function (_Component) {
   _createClass(TBody, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _props = this.props,
+          tableState = _props.tableState,
+          getEmptyMessage = _props.getEmptyMessage,
+          updateState = _props.updateState;
 
-      if (!this.props.tableState.dataset) {
+      var colSpan = tableState.columns.length + (tableState.config.table.thead.actions ? 1 : 0);
+
+      if (!tableState.dataset) {
         return _react2.default.createElement('tbody', null);
       }
       return _react2.default.createElement(
         'tbody',
         null,
-        this.props.tableState.dataset.results.map(function (e, key) {
+        tableState.dataset.results.length > 0 ? tableState.dataset.results.map(function (e, key) {
           var comp = _react2.default.createElement(_TR2.default, {
             key: (0, _core.makeKey)(key),
             element: e,
-            tableState: _this2.props.tableState,
-            updateState: _this2.props.updateState
+            tableState: tableState,
+            updateState: updateState
           });
 
           return comp;
-        })
+        }) : getEmptyMessage && getEmptyMessage instanceof Function ? getEmptyMessage({
+          colSpan: colSpan
+        }) : _react2.default.createElement(
+          'tr',
+          null,
+          _react2.default.createElement(
+            'td',
+            { style: styleEmptyTd, colSpan: colSpan },
+            EMPTY_RESULTS
+          )
+        )
       );
     }
   }]);
@@ -66,6 +88,7 @@ var TBody = function (_Component) {
 }(_react.Component);
 
 TBody.propTypes = {
+  getEmptyMessage: _propTypes2.default.func,
   updateState: _propTypes2.default.func,
   tableState: _propTypes2.default.object
 };

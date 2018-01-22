@@ -72,6 +72,7 @@ class Tabl3 extends Component {
       }
     }
   }
+
   updateState(key, val) {
     const data = this.state
     switch (key) {
@@ -93,6 +94,44 @@ class Tabl3 extends Component {
         this.ajax()
     }
   }
+
+  getResource(cb, resetInputSearch) {
+    let oldUrl = this.state.initiaAjax.url
+    if (typeof cb === 'function') {
+      let { params, url } = cb(this.state.paginator.actual)
+      oldUrl = url
+      if (params) {
+        Object.keys(params).forEach(v => {
+          if (Object.prototype.hasOwnProperty.call(params, v) && params[v]) {
+            oldUrl = updateOrCreateParamFromQS(url, v, params[v])
+          }
+        })
+      }
+    }
+
+    if (resetInputSearch) {
+      this.setState({ inputSearch: {} })
+    } else {
+      const o = this.state.inputSearch
+      Object.keys(o).forEach(v => {
+        if (Object.prototype.hasOwnProperty.call(o, v) && o[v].value) {
+          oldUrl = updateOrCreateParamFromQS(oldUrl, o[v].search, o[v].value)
+        }
+      })
+    }
+
+    this.ajaxConector(
+      {
+        url: oldUrl,
+        method: this.state.initiaAjax.method,
+      },
+      (dataset, response, opt) => {
+        this.setStateService(dataset, response, opt)
+      }
+    )
+  }
+
+  // deprecated
   updateQueryStringOut(cb, resetInputSearch) {
     let url = this.state.initiaAjax.url
     if (typeof cb === 'function') {
@@ -193,7 +232,7 @@ class Tabl3 extends Component {
       ...headers,
     }
     if (c.connector && c.connector instanceof Function ) {
-      this.state.config.conector(config, cb, ecb, nonErrorAjax, cbAfterData)
+      this.state.config.connector(config, cb, ecb, nonErrorAjax, cbAfterData)
     } else if (c.conector && c.conector instanceof Function) { // remove in future release
       console.warn('conector is deprecated, change name to [connector]')
       c.conector(config, cb, ecb, nonErrorAjax, cbAfterData)
@@ -296,7 +335,7 @@ class Tabl3 extends Component {
               handlerInputSearch={this.handlerInputSearch}
               resetToInitialState={this.resetToInitialState}
             />
-            <TBody tableState={st} updateState={this.updateState} />
+            <TBody tableState={st} updateState={this.updateState} getEmptyMessage={st.config.table.getEmptyMessage} />
           </table>
         </div>
         <div className="table-paginator">

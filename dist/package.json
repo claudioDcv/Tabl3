@@ -1,6 +1,6 @@
 {
   "name": "tabl3",
-  "version": "2.0.1",
+  "version": "2.0.10",
   "description": "React Table Server Side, Extensible with plugins",
   "main": "index.js",
   "scripts": {
