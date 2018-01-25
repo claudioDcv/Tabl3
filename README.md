@@ -855,3 +855,53 @@ class AtTableList extends Component {
 
 export default AtTableList;
 ```
+
+# Boostrap 4 pagination
+
+```css
+.pagination li {
+    height: 36px;
+    display: block;
+    float: left;
+    padding: 0;
+    background: white;
+    border-top: solid 1px #ddd;
+    border-left: solid 1px #ddd;
+    border-bottom: solid 1px #ddd;
+}
+.pagination li:first-child {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.pagination li:last-child {
+    border-right: solid 1px #ddd;
+    border-radius: 0px 5px 5px 0px;
+}
+.pagination li > * {
+    display: block;
+    float: left;
+    padding: 5px 12px;
+}
+.pagination li > *:hover {
+    text-decoration: none;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  z-index: 3;
+  color: #fff;
+  cursor: default;
+  background-color: #0275d8;
+  border-color: #ddd;
+}
+
+.table-2-new  .pagination li.active {
+  background-color: #0275d8;
+  color: white;
+  border: 1px solid #0275d8 !important;
+}
+```
