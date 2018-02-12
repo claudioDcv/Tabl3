@@ -59,7 +59,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
         debug: {
           inputSearch: true,
           paginator: true,
-          initiaAjax: true,
+          initialAjax: true,
           dataset: true
         },
         onBeforeSend: function onBeforeSend(e) {
@@ -192,7 +192,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
         debug: {
           inputSearch: true,
           paginator: true,
-          initiaAjax: true,
+          initialAjax: true,
           dataset: true
         },
         onBeforeSend: function onBeforeSend(e) {
@@ -265,7 +265,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
         debug: {
           inputSearch: true,
           paginator: true,
-          initiaAjax: true,
+          initialAjax: true,
           dataset: true
         },
         onBeforeSend: function onBeforeSend(e) {
@@ -346,7 +346,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
         debug: {
           inputSearch: true,
           paginator: true,
-          initiaAjax: true,
+          initialAjax: true,
           dataset: true
         },
         onBeforeSend: function onBeforeSend(e) {
@@ -457,7 +457,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4]", function () {
         debug: {
           inputSearch: true,
           paginator: true,
-          initiaAjax: true,
+          initialAjax: true,
           dataset: true
         },
         onBeforeSend: function onBeforeSend(e) {
@@ -655,7 +655,7 @@ describe("Tabl3 GET [http://127.0.0.1:8000/colors/?limit=4&offset=4&ordering=-na
         debug: {
           inputSearch: true,
           paginator: true,
-          initiaAjax: true,
+          initialAjax: true,
           dataset: true
         },
         onBeforeSend: function onBeforeSend(e) {

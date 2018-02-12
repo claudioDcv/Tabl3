@@ -66,7 +66,7 @@ var Tabl3 = function (_Component) {
     _this.version = 'v1.1.28';
     _this.initError = false;
     _this.state = {
-      initiaAjax: _extends({}, prs.config.ajax),
+      initialAjax: _extends({}, prs.config.ajax),
       config: prs.config,
       dataset: {
         results: []
@@ -146,7 +146,7 @@ var Tabl3 = function (_Component) {
     value: function getResource(cb, resetInputSearch) {
       var _this2 = this;
 
-      var oldUrl = this.state.initiaAjax.url;
+      var oldUrl = this.state.initialAjax.url;
       if (typeof cb === 'function') {
         var _cb = cb(this.state.paginator.actual),
             params = _cb.params,
@@ -175,7 +175,7 @@ var Tabl3 = function (_Component) {
 
       this.ajaxConector({
         url: oldUrl,
-        method: this.state.initiaAjax.method
+        method: this.state.initialAjax.method
       }, function (dataset, response, opt) {
         _this2.setStateService(dataset, response, opt);
       });
@@ -188,7 +188,7 @@ var Tabl3 = function (_Component) {
     value: function updateQueryStringOut(cb, resetInputSearch) {
       var _this3 = this;
 
-      var url = this.state.initiaAjax.url;
+      var url = this.state.initialAjax.url;
       if (typeof cb === 'function') {
         var o = cb(this.state.paginator);
         if (o) {
@@ -215,7 +215,7 @@ var Tabl3 = function (_Component) {
       }
       this.ajaxConector({
         url: url,
-        method: this.state.initiaAjax.method
+        method: this.state.initialAjax.method
       }, function (dataset, response, opt) {
         _this3.setStateService(dataset, response, opt);
       });
@@ -302,7 +302,7 @@ var Tabl3 = function (_Component) {
     value: function ajaxExec(url) {
       var _this6 = this;
 
-      var method = this.state.initiaAjax.method;
+      var method = this.state.initialAjax.method;
       this.ajaxConector({ method: method, url: url }, function (dataset, response, opt) {
         _this6.setStateService(dataset, response, opt);
       });
@@ -310,13 +310,30 @@ var Tabl3 = function (_Component) {
   }, {
     key: 'handlerInputSearch',
     value: function handlerInputSearch(key, value) {
+
       var i = this.state.inputSearch;
+
       i[key] = value;
       this.setState({ inputSearch: i });
 
       if (this.state.inputSearch && this.state.paginator.actual) {
         var url = this.state.paginator.actual;
-        var o = this.state.inputSearch;
+        var orginalModel = this.state.inputSearch;
+
+        // append old url values
+        var dicSearchValues = (0, _core.querystringToJSON)(url);
+        var updateValuesOfSearchData = function updateValuesOfSearchData() {
+          var tempModel = {};
+          Object.keys(orginalModel).forEach(function (e) {
+            tempModel[e] = orginalModel[e];
+            if (dicSearchValues[tempModel[e].search] && value.search !== tempModel[e].search) {
+              tempModel[e].value = dicSearchValues[tempModel[e].search];
+            }
+          });
+          return tempModel;
+        };
+        var o = updateValuesOfSearchData();
+
         Object.keys(o).forEach(function (v) {
           if (Object.prototype.hasOwnProperty.call(o, v)) {
             if (o[v].value) {
@@ -363,9 +380,9 @@ var Tabl3 = function (_Component) {
     value: function initialState() {
       var _this7 = this;
 
-      var initiaAjax = this.state.initiaAjax;
+      var initialAjax = this.state.initialAjax;
       this.setState({ inputSearch: {} });
-      this.ajaxConector(initiaAjax, function (dataset, response, opt) {
+      this.ajaxConector(initialAjax, function (dataset, response, opt) {
         _this7.setStateService(dataset, response, opt);
       });
     }
@@ -432,7 +449,7 @@ var Tabl3 = function (_Component) {
           'div',
           null,
           debug.inputSearch ? Tabl3.formatJSON(st, 'inputSearch') : undefined,
-          debug.initiaAjax ? Tabl3.formatJSON(st, 'initiaAjax') : undefined,
+          debug.initialAjax ? Tabl3.formatJSON(st, 'initialAjax') : undefined,
           debug.paginator ? Tabl3.formatJSON(st, 'paginator') : undefined,
           debug.dataset ? Tabl3.formatJSON(st, 'dataset') : undefined
         ) : null

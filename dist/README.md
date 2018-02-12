@@ -182,14 +182,14 @@ render() {
 
   ```javascript
   debug: {
-    initiaAjax: false,
+    initialAjax: false,
     inputSearch: true,
     paginator: true,
     dataset: false,
   },
   ```
 
-  - **initiaAjax** `{boolean} | optional`: activa el feedback del objecto `ajax` de el `head` de la tabla
+  - **initialAjax** `{boolean} | optional`: activa el feedback del objecto `ajax` de el `head` de la tabla
 
   - **inputSearch** `{boolean} | optional`: activa el feedback de los elemetos input de el `head` de la tabla
 
@@ -279,7 +279,7 @@ export default () => (
         debug: {
           inputSearch: true,
           paginator: true,
-          initiaAjax: false,
+          initialAjax: false,
           dataset: true,
         },
         onBeforeSend: (e) => { console.log(e); },
@@ -349,7 +349,7 @@ export default () => (
       debug: {
         inputSearch: false,
         paginator: false,
-        initiaAjax: false,
+        initialAjax: false,
         dataset: false,
       },
       extraThead: paginator => (<button onClick={() => { console.log(paginator); }}>a</button>),
@@ -473,7 +473,7 @@ export default (
   debug: {
     inputSearch: false,
     paginator: false,
-    initiaAjax: false,
+    initialAjax: false,
     dataset: false,
   },
   onBeforeSend: e => self.loadPMTDIList(e),
@@ -760,7 +760,7 @@ class AtTableList extends Component {
             debug: {
               inputSearch: false,
               paginator: false,
-              initiaAjax: false,
+              initialAjax: false,
               dataset: false,
             },
             onBeforeSend: e => console.log(e),

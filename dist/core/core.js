@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.makePaginator = exports.dotNotationToObject = exports.extractParamFromQSInt = exports.extractParamFromQS = exports.removeParamFromQS = exports.updateOrCreateParamFromQS = exports.makeKey = undefined;
+exports.makePaginator = exports.dotNotationToObject = exports.querystringToJSON = exports.extractParamFromQSInt = exports.extractParamFromQS = exports.removeParamFromQS = exports.updateOrCreateParamFromQS = exports.makeKey = undefined;
 
 var _updateOrCreateParamFromQS = require('./updateOrCreateParamFromQS');
 
@@ -21,6 +21,10 @@ var _extractParamFromQSInt = require('./extractParamFromQSInt');
 
 var _extractParamFromQSInt2 = _interopRequireDefault(_extractParamFromQSInt);
 
+var _queryStringToJSON = require('./queryStringToJSON');
+
+var _queryStringToJSON2 = _interopRequireDefault(_queryStringToJSON);
+
 var _const = require('./const');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -32,6 +36,7 @@ var updateOrCreateParamFromQS = exports.updateOrCreateParamFromQS = _updateOrCre
 var removeParamFromQS = exports.removeParamFromQS = _removeParamFromQS2.default;
 var extractParamFromQS = exports.extractParamFromQS = _extractParamFromQS2.default;
 var extractParamFromQSInt = exports.extractParamFromQSInt = _extractParamFromQSInt2.default;
+var querystringToJSON = exports.querystringToJSON = _queryStringToJSON2.default;
 var dotNotationToObject = exports.dotNotationToObject = function dotNotationToObject(obj, key) {
   return key.split('.').reduce(function (o, i) {
     return o[i];

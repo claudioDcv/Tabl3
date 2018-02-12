@@ -2,6 +2,7 @@ import updateOrCreateParam from './updateOrCreateParamFromQS'
 import removeParam from './removeParamFromQS'
 import extractParam from './extractParamFromQS'
 import extractParamInt from './extractParamFromQSInt'
+import queryStringToJSON from './queryStringToJSON';
 
 import { API } from './const'
 
@@ -10,6 +11,7 @@ export const updateOrCreateParamFromQS = updateOrCreateParam
 export const removeParamFromQS = removeParam
 export const extractParamFromQS = extractParam
 export const extractParamFromQSInt = extractParamInt
+export const querystringToJSON = queryStringToJSON
 export const dotNotationToObject = (obj, key) => key.split('.').reduce((o, i) => o[i], obj)
 
 export const makePaginator = (data, opt, redefineParamsConection) => {

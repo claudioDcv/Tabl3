@@ -11,7 +11,7 @@ import {
   RESULTS_ORDERING,
 } from './core/const'
 
-import { updateOrCreateParamFromQS, makePaginator, removeParamFromQS } from './core/core'
+import { updateOrCreateParamFromQS, makePaginator, removeParamFromQS, querystringToJSON } from './core/core'
 
 import { errorInitialTable } from './errorReport'
 
@@ -30,7 +30,7 @@ class Tabl3 extends Component {
     this.version = 'v1.1.28'
     this.initError = false
     this.state = {
-      initiaAjax: { ...prs.config.ajax },
+      initialAjax: { ...prs.config.ajax },
       config: prs.config,
       dataset: {
         results: [],
@@ -96,7 +96,7 @@ class Tabl3 extends Component {
   }
 
   getResource(cb, resetInputSearch) {
-    let oldUrl = this.state.initiaAjax.url
+    let oldUrl = this.state.initialAjax.url
     if (typeof cb === 'function') {
       let { params, url } = cb(this.state.paginator.actual)
       oldUrl = url
@@ -123,7 +123,7 @@ class Tabl3 extends Component {
     this.ajaxConector(
       {
         url: oldUrl,
-        method: this.state.initiaAjax.method,
+        method: this.state.initialAjax.method,
       },
       (dataset, response, opt) => {
         this.setStateService(dataset, response, opt)
@@ -133,7 +133,7 @@ class Tabl3 extends Component {
 
   // deprecated
   updateQueryStringOut(cb, resetInputSearch) {
-    let url = this.state.initiaAjax.url
+    let url = this.state.initialAjax.url
     if (typeof cb === 'function') {
       const o = cb(this.state.paginator)
       if (o) {
@@ -161,7 +161,7 @@ class Tabl3 extends Component {
     this.ajaxConector(
       {
         url,
-        method: this.state.initiaAjax.method,
+        method: this.state.initialAjax.method,
       },
       (dataset, response, opt) => {
         this.setStateService(dataset, response, opt)
@@ -240,47 +240,64 @@ class Tabl3 extends Component {
 
   }
   ajaxExec(url) {
-    const method = this.state.initiaAjax.method
+    const method = this.state.initialAjax.method
     this.ajaxConector({ method, url }, (dataset, response, opt) => {
       this.setStateService(dataset, response, opt)
     })
   }
   handlerInputSearch(key, value) {
+
     const i = this.state.inputSearch
+
     i[key] = value
     this.setState({ inputSearch: i })
 
     if (this.state.inputSearch && this.state.paginator.actual) {
       let url = this.state.paginator.actual
-      const o = this.state.inputSearch
-        Object.keys(o).forEach(v => {
-          if (Object.prototype.hasOwnProperty.call(o, v)) {
-            if (o[v].value) {
-              console.log(o[v]);
-              if (o[v].search instanceof Array && typeof o[v].value === 'string' ) {
-                o[v].search.forEach(e => {
-                  url = updateOrCreateParamFromQS(url, e, o[v].value)
-                })
-              }
-              if (o[v].search instanceof Array && o[v].value instanceof Array ) {
-                o[v].search.forEach((e, i) => {
-                  url = updateOrCreateParamFromQS(url, e, o[v].value[i])
-                })
-              } else {
-                url = updateOrCreateParamFromQS(url, o[v].search, o[v].value)
-              }
+      const orginalModel = this.state.inputSearch
+
+      // append old url values
+      const dicSearchValues = querystringToJSON(url)
+      const updateValuesOfSearchData = () => {
+        const tempModel = {};
+        Object.keys(orginalModel).forEach((e) => {
+          tempModel[e] = orginalModel[e]
+          if (dicSearchValues[tempModel[e].search] && value.search !== tempModel[e].search) {
+            tempModel[e].value = dicSearchValues[tempModel[e].search];
+          }
+        });
+        return tempModel;
+      };
+      const o = updateValuesOfSearchData();
+
+      Object.keys(o).forEach(v => {
+        if (Object.prototype.hasOwnProperty.call(o, v)) {
+          if (o[v].value) {
+            console.log(o[v]);
+            if (o[v].search instanceof Array && typeof o[v].value === 'string' ) {
+              o[v].search.forEach(e => {
+                url = updateOrCreateParamFromQS(url, e, o[v].value)
+              })
+            }
+            if (o[v].search instanceof Array && o[v].value instanceof Array ) {
+              o[v].search.forEach((e, i) => {
+                url = updateOrCreateParamFromQS(url, e, o[v].value[i])
+              })
             } else {
-              console.log(o[v]);
-              if (o[v].search instanceof Array) {
-                o[v].search.forEach(e => {
-                  url = removeParamFromQS(e, url)
-                })
-              } else {
-                url = removeParamFromQS(o[v].search, url)
-              }
+              url = updateOrCreateParamFromQS(url, o[v].search, o[v].value)
+            }
+          } else {
+            console.log(o[v]);
+            if (o[v].search instanceof Array) {
+              o[v].search.forEach(e => {
+                url = removeParamFromQS(e, url)
+              })
+            } else {
+              url = removeParamFromQS(o[v].search, url)
             }
           }
-        })
+        }
+      })
       // }
       url = updateOrCreateParamFromQS(url, 'offset', 0)
       this.ajaxExec(url)
@@ -293,9 +310,9 @@ class Tabl3 extends Component {
     this.initialState()
   }
   initialState() {
-    const initiaAjax = this.state.initiaAjax
+    const initialAjax = this.state.initialAjax
     this.setState({ inputSearch: {} })
-    this.ajaxConector(initiaAjax, (dataset, response, opt) => {
+    this.ajaxConector(initialAjax, (dataset, response, opt) => {
       this.setStateService(dataset, response, opt)
     })
   }
@@ -348,7 +365,7 @@ class Tabl3 extends Component {
         {this.state.config.debug
           ? <div>
               {debug.inputSearch ? Tabl3.formatJSON(st, 'inputSearch') : undefined}
-              {debug.initiaAjax ? Tabl3.formatJSON(st, 'initiaAjax') : undefined}
+              {debug.initialAjax ? Tabl3.formatJSON(st, 'initialAjax') : undefined}
               {debug.paginator ? Tabl3.formatJSON(st, 'paginator') : undefined}
               {debug.dataset ? Tabl3.formatJSON(st, 'dataset') : undefined}
             </div>
